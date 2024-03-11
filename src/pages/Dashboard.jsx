@@ -30,7 +30,7 @@ function Dashboard(props) {
         return;
       }
       const data = await database.createDocument(import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID, 'unique()', {
-        todo_content: todo, 
+        todo: todo, 
         email: email
       });
       setTodo('');
