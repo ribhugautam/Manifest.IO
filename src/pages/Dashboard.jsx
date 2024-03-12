@@ -12,6 +12,7 @@ function Dashboard(props) {
   const [todo,setTodo] = useState('');
   const [alltodos,setAlltodos] = useState([]);
   const [newtodo,setNewtodo] = useState('');
+  const [edit,setEdit] = useState(false);
 
   const addTodo = async() => {
     try {
@@ -110,14 +111,33 @@ function Dashboard(props) {
       <div className="text-2xl text-center font-bold mb-4">Welcome, <span className='text-blue-500' >{name}</span></div>
       <br/>
       <div className='relative' >
+
       <input 
-      type="text"
-      value={todo}
-      onChange={(e) => setTodo(e.target.value)}
-      className="w-80 h-10 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-      placeholder='Add Post' 
+        type="text"
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+        className="w-80 h-10 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+        placeholder='Add Post' 
       />
+
       <button onClick={addTodo} className="bg-blue-500 absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md" >Post</button>
+        
+      </div>
+
+      <div className='relative' >
+        { edit &&
+      <input
+          type='text'
+          value={newtodo}
+          placeholder='Edit Post'
+          className='w-80 h-10 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[5rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+          onChange={(e) => setNewtodo(e.target.value)}
+          onClick={() => setNewtodo(todo.todo)}
+        />
+        }
+        {
+          <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${edit ? ' absolute right-0 rounded-r-md ' : ' '}`} onClick={() => setEdit(!edit) } > {edit ? 'Cancel' : 'Edit a post'} </button>
+        }
       </div>
 
       <div className=' w-full overflow-y-scroll max-h-[400px] mt-8  ' >
@@ -135,18 +155,11 @@ function Dashboard(props) {
 
               {todo.email == email && 
               <div className='flex flex-col gap-2 justify-center ' >
-                <input
-                  type='text'
-                  value={newtodo}
-                  placeholder='Edit Post'
-                  className='w-80 h-6 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                  onChange={(e) => setNewtodo(e.target.value)}
-                  onClick={() => setNewtodo(todo.todo)}
-                />
+                
                 <div className=' text-[10px] flex gap-1 justify-end ' >
                   {
-                    newtodo !== '' &&
-                    <button className='bg-blue-500 text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => editTodo(todo.$id, todo.email, todo.todo)} >Edit</button>
+                    newtodo !== '' && edit &&
+                    <button className='bg-blue-500 text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => editTodo(todo.$id, todo.email, todo.todo)} >Apply Here</button>
                   }
                   <button className='bg-red-500  bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200' onClick={() => deleteTodo(todo.$id, todo.email)}>Delete</button>
                 </div>
