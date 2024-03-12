@@ -12,7 +12,7 @@ function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
 
   return (
-    <div className='flex flex-col h-screen' >
+    <div className='flex flex-col min-h-screen' >
     <NavBar isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin} />
     <Routes>
       
