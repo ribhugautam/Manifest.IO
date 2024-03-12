@@ -100,7 +100,7 @@ function Dashboard(props) {
       </div>
 
       <div className=' w-full overflow-y-scroll max-h-[400px] pt-8  ' >
-      {alltodos.length > 0 ? <div className='w-full' >
+      {alltodos.length > 0 ? <div className='w-full flex flex-col-reverse ' >
         {
           alltodos.map((todo) => (
             <div className="bg-white shadow-md w-full rounded-lg p-4 mb-4">
@@ -111,7 +111,7 @@ function Dashboard(props) {
         }
       </div> : 
       <div>
-        <p className="text-lg font-semibold">No Posts found</p>
+        <p className="text-lg text-center font-semibold">No Posts found</p>
        </div>}
 
       </div>
