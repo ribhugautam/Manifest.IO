@@ -24,9 +24,9 @@ function NavBar(props) {
 
         <h1 className='text-2xl font-bold' >TODO.IO</h1>
 
-      <ul className='flex gap-8 items-center justify-center '>
+      {/* <ul className='flex gap-8 items-center justify-center '>
         <Link to="/"><li className='font-semibold py-1 p-2 rounded filter  hover:brightness-120  transition-all duration-200 ' >Home</li></Link>
-      </ul>
+      </ul> */}
 
       <div className='flex gap-2' >
       {!isLoggedin &&
