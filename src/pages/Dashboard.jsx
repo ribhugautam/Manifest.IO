@@ -103,8 +103,11 @@ function Dashboard(props) {
       {alltodos.length > 0 ? <div className='w-full flex flex-col-reverse ' >
         {
           alltodos.map((todo) => (
-            <div className="bg-white shadow-md w-full rounded-lg p-4 mb-4">
-              <p className="text-[12px] font-semibold ">By: {todo.email}</p>
+            <div className="bg-white flex flex-col gap-2 shadow-md w-full rounded-lg p-4 mb-4">
+              <div className='flex justify-between gap-2 items-center' >
+                <p className="text-[12px] font-semibold ">By: {todo.email}</p>
+                <p className="text-[10px] font-semibold " >{new Date(todo.$createdAt).toLocaleString()}</p>
+              </div>
               <p className="text-lg font-semibold">{todo.todo}</p>
             </div>
           ))
