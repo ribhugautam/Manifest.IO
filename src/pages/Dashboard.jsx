@@ -80,13 +80,12 @@ function Dashboard(props) {
   return (
     <div className="flex flex-col p-8 items-center h-full bg-gray-100">
       <div className='flex flex-col items-center justify-center h-full w-11/12 max-w-[1180px] mx-auto ' >
-      <div className="text-2xl font-bold mb-4">Dashboard</div>
       { 
       name ? 
       <>
       <div className='flex flex-col justify-between items-center gap-4 ' >
 
-      <div className="text-sm mb-4">Welcome, {name}</div>
+      <div className="text-2xl font-bold mb-4">Welcome, {name}</div>
       <br/>
       <div className='relative' >
       <input 
