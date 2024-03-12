@@ -22,7 +22,7 @@ function NavBar(props) {
     <div className="bg-blue-500  text-white p-4" >
       <div className='flex justify-between items-center max-w-[1180px] mx-auto w-11/12' >
 
-        <Link to="/" ><h1 className='text-2xl font-bold' >MANIFEST.IO</h1></Link>
+        <Link to="/" ><span className='text-blue-500 text-2xl font-bold shadow-md bg-white rounded-l px-1 pl-2 ' >MANIFEST</span><span className='text-white bg-blue-500 px-1 pr-2 rounded-r text-2xl shadow-md font-bold ' >.IO</span></Link>
 
       {/* <ul className='flex gap-8 items-center justify-center '>
         <Link to="/"><li className='font-semibold py-1 p-2 rounded filter  hover:brightness-120  transition-all duration-200 ' >Home</li></Link>
@@ -30,17 +30,17 @@ function NavBar(props) {
 
       <div className='flex gap-2' >
       {!isLoggedin &&
-      <Link to="/Login"><button className='bg-white text-blue-700 font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >LogIn</button></Link>
+      <Link to="/Login"><button className='bg-white text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >LogIn</button></Link>
       }
       {!isLoggedin &&
-      <Link to="/Register"><button className='bg-white text-blue-700 font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >Register</button></Link>
+      <Link to="/Register"><button className='bg-white text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >Register</button></Link>
       }
 
       {isLoggedin &&
-      <Link to="/Login"><button className='bg-white text-blue-700 font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 '  onClick={onLogout} >LogOut</button></Link>
+      <Link to="/Login"><button className='bg-white text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 '  onClick={onLogout} >LogOut</button></Link>
       }
       {isLoggedin &&
-      <Link to="/Dashboard"><button className='bg-white text-blue-700 font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >DashBoard</button></Link>
+      <Link to="/Dashboard"><button className='bg-white text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ' >DashBoard</button></Link>
       }
       </div> 
       </div>

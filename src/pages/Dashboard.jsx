@@ -108,7 +108,10 @@ function Dashboard(props) {
       <>
       <div className='flex flex-col justify-between items-center gap-4 ' >
 
-      <div className="text-2xl text-center font-bold mb-4">Welcome, <span className='text-blue-500' >{name}</span></div>
+      <div className="text-2xl text-center font-bold">
+        Hey, <span className='text-blue-500' >{name}</span>
+        <p className='text-sm font-normal text-gray-500 ' >What's on your mind?</p>
+      </div>
       <br/>
       <div className='relative' >
 
@@ -120,7 +123,7 @@ function Dashboard(props) {
         placeholder='Add Post' 
       />
 
-      <button onClick={addTodo} className="bg-blue-500 absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md" >Post</button>
+      <button onClick={addTodo} className="bg-blue-500 shadow-md absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md" >Post</button>
         
       </div>
 
@@ -136,7 +139,7 @@ function Dashboard(props) {
         />
         }
         {
-          <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${edit ? ' absolute right-0 rounded-r-md ' : ' '}`} onClick={() => setEdit(!edit) } > {edit ? 'Cancel' : 'Edit a post'} </button>
+          <button className={`bg-blue-500 hover:bg-blue-700 text-white shadow-md font-bold py-2 px-4 ${edit ? ' absolute right-0 rounded-r ' : 'rounded'}`} onClick={() => setEdit(!edit) } > {edit ? 'Cancel' : 'Edit a post'} </button>
         }
       </div>
 
@@ -159,9 +162,9 @@ function Dashboard(props) {
                 <div className=' text-[10px] flex gap-1 justify-end ' >
                   {
                     newtodo !== '' && edit &&
-                    <button className='bg-blue-500 text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => editTodo(todo.$id, todo.email, todo.todo)} >Apply Here</button>
+                    <button className='bg-blue-500 shadow-md text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => (editTodo(todo.$id, todo.email, todo.todo) && setEdit(false))} >Apply Here</button>
                   }
-                  <button className='bg-red-500  bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200' onClick={() => deleteTodo(todo.$id, todo.email)}>Delete</button>
+                  <button className='bg-red-500 shadow-md bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200' onClick={() => deleteTodo(todo.$id, todo.email)}>Delete</button>
                 </div>
               </div>
               }
