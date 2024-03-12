@@ -16,7 +16,7 @@ function App() {
     <NavBar isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin} />
     <Routes>
       
-      <Route path='/' element={<Home/>} />
+      <Route path='/' element={<Login/>} />
       <Route path='/Register' element={<Register/>} />
       <Route path='/Login' element={<Login isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin} /> } />
       <Route path='/Dashboard' element={
