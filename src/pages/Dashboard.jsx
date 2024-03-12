@@ -87,13 +87,14 @@ function Dashboard(props) {
       const data = await database.updateDocument(import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID, id, {
         todo : newtodo
       })
+      toast.success('Post edited successfully');
     }
     catch(error){
       toast.error('Error editing post');
     }
     setNewtodo("");
   }
-
+  
   useEffect(() => {
     isLogin();
   },[alltodos]);
@@ -132,25 +133,23 @@ function Dashboard(props) {
 
               <p className="text-md max-w-[15rem] break-words font-semibold">{todo.todo}</p>
 
-              {
-              todo.email == email &&
-              <input
-              type='text'
-              value={newtodo}
-              placeholder='Edit Post'
-              className='w-80 h-6 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-              onChange={(e) => setNewtodo(e.target.value)}
-              onClick={() => setNewtodo(todo.todo)}
-              />
-              }
-
               {todo.email == email && 
-              <div className=' text-[10px] flex gap-1 justify-end ' >
-                {
-                  newtodo !== '' &&
-                  <button className='bg-blue-500 text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => editTodo(todo.$id, todo.email, todo.todo)} >Edit</button>
-                }
-                <button className='bg-red-500  bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200' onClick={() => deleteTodo(todo.$id, todo.email)}>Delete</button>
+              <div className='flex flex-col gap-2 justify-center ' >
+                <input
+                  type='text'
+                  value={newtodo}
+                  placeholder='Edit Post'
+                  className='w-80 h-6 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                  onChange={(e) => setNewtodo(e.target.value)}
+                  onClick={() => setNewtodo(todo.todo)}
+                />
+                <div className=' text-[10px] flex gap-1 justify-end ' >
+                  {
+                    newtodo !== '' &&
+                    <button className='bg-blue-500 text-[10px] text-white font-semibold py-1 p-2 rounded hover:bg-blue-600 transition-all duration-200' onClick={() => editTodo(todo.$id, todo.email, todo.todo)} >Edit</button>
+                  }
+                  <button className='bg-red-500  bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200' onClick={() => deleteTodo(todo.$id, todo.email)}>Delete</button>
+                </div>
               </div>
               }
   
