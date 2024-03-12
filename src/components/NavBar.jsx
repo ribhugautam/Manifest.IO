@@ -22,7 +22,7 @@ function NavBar(props) {
     <div className="bg-blue-500  text-white p-4" >
       <div className='flex justify-between items-center max-w-[1180px] mx-auto w-11/12' >
 
-        <h1 className='text-2xl font-bold' >MANIFEST.IO</h1>
+        <Link to="/" ><h1 className='text-2xl font-bold' >MANIFEST.IO</h1></Link>
 
       {/* <ul className='flex gap-8 items-center justify-center '>
         <Link to="/"><li className='font-semibold py-1 p-2 rounded filter  hover:brightness-120  transition-all duration-200 ' >Home</li></Link>

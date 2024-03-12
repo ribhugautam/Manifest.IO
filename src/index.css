@@ -7,4 +7,7 @@
     padding: 0;
     box-sizing: border-box;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+    transition: all;
+    animation-duration: 200ms;
 }
