@@ -47,6 +47,7 @@ function Dashboard(props) {
       const user = await account.get("current");
       setName(user.name);
       setEmail(user.email);
+      viewTodos();
       
     } catch (error) {
       navigate('/Login');
@@ -74,7 +75,6 @@ function Dashboard(props) {
 
   useEffect(() => {
     isLogin();
-    viewTodos();
   },[alltodos]);
 
   return (
@@ -99,6 +99,7 @@ function Dashboard(props) {
       <button onClick={addTodo} className="bg-blue-500 absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md" >Post</button>
       </div>
 
+      <div className=' w-full overflow-y-scroll max-h-[400px] pt-8  ' >
       {alltodos.length > 0 ? <div className='w-full' >
         {
           alltodos.map((todo) => (
@@ -113,6 +114,7 @@ function Dashboard(props) {
         <p className="text-lg font-semibold">No Posts found</p>
        </div>}
 
+      </div>
       </div>
       </> 
 
