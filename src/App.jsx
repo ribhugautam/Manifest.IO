@@ -24,7 +24,7 @@ function App() {
           <Dashboard/>
         </Privateroute>
       } />
-      <Route path='*' element = {<Home/>}/>
+      <Route path='*' element = {<Login/>}/>
 
     </Routes>
       
