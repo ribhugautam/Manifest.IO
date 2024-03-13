@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { account } from "../appwrite/config";
+import React from "react";
 
 function Home() {
   return (

@@ -19,11 +19,11 @@ function Login(props) {
   const login = async () => {
     try {
       const user = await account.createEmailPasswordSession(email, password);
-      toast.success("Logged in successfully",{className:"dark:bg-white/5 dark:text-white"});
+      toast.success("Logged in successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
       setIsLoggedin(true);
       navigate("/Dashboard");
     } catch (error) {
-      toast.error("Invalid email or password",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("Invalid email or password",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
   };
 
@@ -49,7 +49,7 @@ function Login(props) {
               value={email}
               required
               onChange={(event) => setEmail(event.target.value)}
-              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
@@ -66,7 +66,7 @@ function Login(props) {
               value={password}
               required
               onChange={(event) => setPassword(event.target.value)}
-              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">

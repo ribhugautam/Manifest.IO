@@ -16,7 +16,7 @@ function Dashboard(props) {
   const addTodo = async () => {
     try {
       if (todo === "") {
-        toast.error("Please enter a Post");
+        toast.error("Please enter a Post",{className:"dark:bg-[#070F2B] dark:text-white"});
         return;
       }
       const data = await database.createDocument(
@@ -63,7 +63,7 @@ function Dashboard(props) {
 
   const deleteTodo = async (id, vemail) => {
     if (vemail !== email) {
-      toast.error("You are not authorized to delete this post",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("You are not authorized to delete this post",{className:"dark:bg-[#070F2B] dark:text-white"});
       return;
     }
     try {
@@ -72,15 +72,15 @@ function Dashboard(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         id
       );
-      toast.success("Post deleted successfully",{className:"dark:bg-white/5 dark:text-white"});
+      toast.success("Post deleted successfully",{className:"dark:-[#070F2B] dark:text-white"});
     } catch (error) {
-      toast.error("Error deleting post",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("Error deleting post",{className:"dark:-[#070F2B] dark:text-white"});
     }
   };
 
   const editTodo = async (id, vemail, vtodo) => {
     if (vemail !== email) {
-      toast.error("You are not authorized to edit this post",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("You are not authorized to edit this post",{className:"dark:bg-[#070F2B] dark:text-white"});
       return;
     }
     try {
@@ -92,9 +92,9 @@ function Dashboard(props) {
           todo: newtodo,
         }
       );
-      toast.success("Post edited successfully",{className:"dark:bg-white/5 dark:text-white"});
+      toast.success("Post edited successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
     } catch (error) {
-      toast.error("Error editing post",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("Error editing post",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
     setNewtodo("");
   };
@@ -121,7 +121,7 @@ function Dashboard(props) {
                   type="text"
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
-                  className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 rounded-md focus:outline-none pr-[4rem] ring ring-blue-500 "
                   placeholder="Add Post"
                 />
 
@@ -139,7 +139,7 @@ function Dashboard(props) {
                     type="text"
                     value={newtodo}
                     placeholder="Edit Post"
-                    className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[5rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 rounded-md pr-[5rem] focus:outline-none ring ring-blue-500 "
                     onChange={(e) => setNewtodo(e.target.value)}
                     onClick={() => setNewtodo(todo.todo)}
                   />

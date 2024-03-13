@@ -13,7 +13,7 @@ function NavBar(props) {
     account.deleteSession("current");
     navigate("/Login");
     setIsLoggedin(false);
-    toast.success("Logged out successfully",{className:"dark:bg-white/5 dark:text-white"});
+    toast.success("Logged out successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
   };
 
   return (

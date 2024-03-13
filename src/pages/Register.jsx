@@ -19,10 +19,10 @@ function Register() {
   const register = async () => {
     try {
       const user = await account.create("unique()", email, password, name);
-      toast.success("Registered successfully",{className:"dark:bg-white/5 dark:text-white"});
+      toast.success("Registered successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
       navigate("/Login");
     } catch (error) {
-      toast.error("Error registering",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("Error registering",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
   };
 
@@ -48,7 +48,7 @@ function Register() {
               value={name}
               required
               onChange={(event) => setName(event.target.value)}
-              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none ring-blue-500 ring dark:bg-transparent rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
@@ -65,7 +65,7 @@ function Register() {
               value={email}
               required
               onChange={(event) => setEmail(event.target.value)}
-              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none ring-blue-500 ring dark:bg-transparent rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
@@ -82,7 +82,7 @@ function Register() {
               value={password}
               required
               onChange={(event) => setPassword(event.target.value)}
-              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none ring-blue-500 ring dark:bg-transparent rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">
