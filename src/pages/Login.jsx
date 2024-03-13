@@ -1,40 +1,45 @@
-import React from 'react'
-import { useState } from 'react';
-import { account } from '../appwrite/config';
-import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useState } from "react";
+import { account } from "../appwrite/config";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const setIsLoggedin = props.setIsLoggedin;
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     login();
   };
 
-  const login = async() => {
+  const login = async () => {
     try {
       const user = await account.createEmailPasswordSession(email, password);
-      toast.success('Logged in successfully');
+      toast.success("Logged in successfully");
       setIsLoggedin(true);
-      navigate('/Dashboard');
-    }
-     catch (error) {
+      navigate("/Dashboard");
+    } catch (error) {
       toast.error("Invalid email or password");
-     }
-  }
+    }
+  };
 
   return (
     <div className="flex flex-col items-center px-8 justify-center h-full bg-gray-100">
       <div className="w-full max-w-md">
         <h1 className="text-4xl font-bold text-center mb-8">Login</h1>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded-lg p-8"
+        >
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Email
             </label>
             <input
@@ -48,7 +53,10 @@ function Login(props) {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-bold mb-2"
+            >
               Password
             </label>
             <input
@@ -68,7 +76,10 @@ function Login(props) {
             >
               Login
             </button>
-            <a href="#" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            <a
+              href="#"
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            >
               Forgot Password?
             </a>
           </div>
@@ -78,4 +89,4 @@ function Login(props) {
   );
 }
 
-export default Login
+export default Login;
