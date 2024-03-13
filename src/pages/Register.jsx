@@ -19,25 +19,25 @@ function Register() {
   const register = async () => {
     try {
       const user = await account.create("unique()", email, password, name);
-      toast.success("Registered successfully");
+      toast.success("Registered successfully",{className:"dark:bg-white/5 dark:text-white"});
       navigate("/Login");
     } catch (error) {
-      toast.error("Error registering");
+      toast.error("Error registering",{className:"dark:bg-white/5 dark:text-white"});
     }
   };
 
   return (
-    <div className="flex flex-col items-center px-8 justify-center h-full bg-gray-100">
+    <div className="flex flex-col items-center p-8 justify-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
       <div className="w-full  max-w-md">
         <h1 className="text-4xl font-bold text-center mb-8">Register</h1>
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-8"
+          className="bg-white dark:bg-white/5 shadow-md rounded-lg p-8"
         >
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-white font-bold mb-2"
             >
               Name
             </label>
@@ -48,13 +48,13 @@ function Register() {
               value={name}
               required
               onChange={(event) => setName(event.target.value)}
-              className="appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-white font-bold mb-2"
             >
               Email
             </label>
@@ -65,13 +65,13 @@ function Register() {
               value={email}
               required
               onChange={(event) => setEmail(event.target.value)}
-              className="appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-white font-bold mb-2"
             >
               Password
             </label>
@@ -82,7 +82,7 @@ function Register() {
               value={password}
               required
               onChange={(event) => setPassword(event.target.value)}
-              className="appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">

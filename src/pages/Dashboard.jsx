@@ -30,9 +30,9 @@ function Dashboard(props) {
         }
       );
       setTodo("");
-      toast.success("Post added successfully");
+      toast.success("Post added successfully",{className:"dark:bg-white/5 dark:text-white"});
     } catch (error) {
-      toast.error("Error adding post");
+      toast.error("Error adding post",{className:"dark:bg-white/5 dark:text-white"});
     }
   };
 
@@ -63,7 +63,7 @@ function Dashboard(props) {
 
   const deleteTodo = async (id, vemail) => {
     if (vemail !== email) {
-      toast.error("You are not authorized to delete this post");
+      toast.error("You are not authorized to delete this post",{className:"dark:bg-white/5 dark:text-white"});
       return;
     }
     try {
@@ -72,15 +72,15 @@ function Dashboard(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         id
       );
-      toast.success("Post deleted successfully");
+      toast.success("Post deleted successfully",{className:"dark:bg-white/5 dark:text-white"});
     } catch (error) {
-      toast.error("Error deleting post");
+      toast.error("Error deleting post",{className:"dark:bg-white/5 dark:text-white"});
     }
   };
 
   const editTodo = async (id, vemail, vtodo) => {
     if (vemail !== email) {
-      toast.error("You are not authorized to edit this post");
+      toast.error("You are not authorized to edit this post",{className:"dark:bg-white/5 dark:text-white"});
       return;
     }
     try {
@@ -92,9 +92,9 @@ function Dashboard(props) {
           todo: newtodo,
         }
       );
-      toast.success("Post edited successfully");
+      toast.success("Post edited successfully",{className:"dark:bg-white/5 dark:text-white"});
     } catch (error) {
-      toast.error("Error editing post");
+      toast.error("Error editing post",{className:"dark:bg-white/5 dark:text-white"});
     }
     setNewtodo("");
   };
@@ -104,7 +104,7 @@ function Dashboard(props) {
   }, [alltodos]);
 
   return (
-    <div className="flex flex-col p-8 items-center h-full bg-gray-100">
+    <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
       <div className="flex flex-col items-center justify-center h-full w-11/12 max-w-[1180px] mx-auto ">
         {name ? (
           <>
@@ -121,7 +121,7 @@ function Dashboard(props) {
                   type="text"
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
-                  className="w-80 h-10 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[4rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Add Post"
                 />
 
@@ -139,7 +139,7 @@ function Dashboard(props) {
                     type="text"
                     value={newtodo}
                     placeholder="Edit Post"
-                    className="w-80 h-10 px-4 break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[5rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 border border-gray-300 rounded-md focus:outline-none pr-[5rem] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     onChange={(e) => setNewtodo(e.target.value)}
                     onClick={() => setNewtodo(todo.todo)}
                   />
@@ -161,7 +161,7 @@ function Dashboard(props) {
                 {alltodos.length > 0 ? (
                   <div className="w-full flex flex-col-reverse ">
                     {alltodos.map((todo) => (
-                      <div className="bg-white gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg p-4 mb-4">
+                      <div className="bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg p-4 mb-4">
                         <div className="flex justify-between items-center">
                           <p className="text-[10px] text-blue-500 font-semibold ">
                             {todo.name}

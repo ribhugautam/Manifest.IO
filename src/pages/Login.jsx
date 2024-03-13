@@ -19,26 +19,26 @@ function Login(props) {
   const login = async () => {
     try {
       const user = await account.createEmailPasswordSession(email, password);
-      toast.success("Logged in successfully");
+      toast.success("Logged in successfully",{className:"dark:bg-white/5 dark:text-white"});
       setIsLoggedin(true);
       navigate("/Dashboard");
     } catch (error) {
-      toast.error("Invalid email or password");
+      toast.error("Invalid email or password",{className:"dark:bg-white/5 dark:text-white"});
     }
   };
 
   return (
-    <div className="flex flex-col items-center px-8 justify-center h-full bg-gray-100">
+    <div className="flex flex-col items-center p-8 justify-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
       <div className="w-full max-w-md">
         <h1 className="text-4xl font-bold text-center mb-8">Login</h1>
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-8"
+          className="bg-white dark:bg-white/5 shadow-md rounded-lg p-8"
         >
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-white font-bold mb-2"
             >
               Email
             </label>
@@ -49,13 +49,13 @@ function Login(props) {
               value={email}
               required
               onChange={(event) => setEmail(event.target.value)}
-              className="appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-white font-bold mb-2"
             >
               Password
             </label>
@@ -66,7 +66,7 @@ function Login(props) {
               value={password}
               required
               onChange={(event) => setPassword(event.target.value)}
-              className="appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">

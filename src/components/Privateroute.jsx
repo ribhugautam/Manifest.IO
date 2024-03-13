@@ -1,11 +1,8 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import { Navigate } from "react-router-dom";
 
-function Privateroute({children, isLoggedin}) {
-
-    return(
-        isLoggedin ? children : <Navigate to="/Login" />
-    )
+function Privateroute({ children, isLoggedin }) {
+  return isLoggedin ? children : <Navigate to="/Login" />;
 }
 
 export default Privateroute;
