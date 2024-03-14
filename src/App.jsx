@@ -12,12 +12,7 @@ function App() {
   const [toggle, setToggle] = useState(null);
 
   useEffect(() => {
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-      setToggle('dark');
-    }
-    else{
-      setToggle('light');
-    }
+    setToggle(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
   },[])
 
 
