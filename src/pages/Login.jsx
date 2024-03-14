@@ -8,6 +8,7 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setIsLoggedin = props.setIsLoggedin;
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ function Login(props) {
   };
 
   const login = async () => {
+    setLoggingIn(true);
     try {
       const user = await account.createEmailPasswordSession(email, password);
       toast.success("Logged in successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
@@ -25,10 +27,12 @@ function Login(props) {
     } catch (error) {
       toast.error("Invalid email or password",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
+    setLoggingIn(false);
   };
 
   return (
     <div className="flex flex-col items-center p-8 justify-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
+
       <div className="w-full max-w-md">
         <h1 className="text-4xl font-bold text-center mb-8">Login</h1>
         <form
@@ -85,6 +89,7 @@ function Login(props) {
           </div>
         </form>
       </div>
+      
     </div>
   );
 }

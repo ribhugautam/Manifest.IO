@@ -62,6 +62,14 @@ function Dashboard(props) {
   }
 
   const deleteTodo = async (id, vemail) => {
+    if (vemail === null || vemail === undefined) {
+      console.error('Null or undefined vemail in deleteTodo');
+      return;
+    }
+    if (email === null || email === undefined) {
+      console.error('Null or undefined email in deleteTodo');
+      return;
+    }
     if (vemail !== email) {
       toast.error("You are not authorized to delete this post",{className:"dark:bg-[#070F2B] dark:text-white"});
       return;
@@ -72,11 +80,13 @@ function Dashboard(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         id
       );
-      toast.success("Post deleted successfully",{className:"dark:-[#070F2B] dark:text-white"});
+      toast.success("Post deleted successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
     } catch (error) {
-      toast.error("Error deleting post",{className:"dark:-[#070F2B] dark:text-white"});
+      console.error('Error deleting post', error);
+      toast.error("Error deleting post",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
   };
+
 
   const editTodo = async (id, vemail, vtodo) => {
     if (vemail !== email) {
