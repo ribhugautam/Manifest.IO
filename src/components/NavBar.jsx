@@ -19,13 +19,15 @@ function NavBar(props) {
   return (
     <div className="bg-blue-500 dark:bg-[#1B1A55] text-white p-4">
       <div className="flex justify-between items-center max-w-[1180px] mx-auto w-11/12">
-        <Link to="/">
-          <span className="text-blue-500 text-2xl font-bold shadow-md bg-white dark:bg-white/5 rounded-l px-1 pl-2 ">
-            MANIFEST
-          </span>
-          <span className="text-white bg-blue-500 px-1 pr-2 rounded-r  text-2xl shadow-md font-bold ">
-            .IO
-          </span>
+        <Link to="/" className="ring ring-blue-500 rounded" >
+        <div className="ring flex flex-wrap text-xl font-bold justify-center rounded items-center text-center ring-blue-500" >  
+            <span className="text-blue-500 dark:bg-white/10 shadow-md bg-white rounded-l px-1 pl-2 ">
+              MANIFEST
+            </span>
+            <span className="text-white shadow-md bg-blue-500 px-1 pr-2 rounded-r">
+              .IO
+            </span>
+          </div>
         </Link>
 
         {/* <ul className='flex gap-8 items-center justify-center '>
