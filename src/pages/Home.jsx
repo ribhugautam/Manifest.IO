@@ -6,9 +6,8 @@ function Home() {
       <div className="flex flex-col items-center justify-center w-11/12 max-w-[1180px] mx-auto ">
         {/* Hero Section */}
         <section className="hero w-full max-w-4xl text-center">
-          <h1 className="text-xl font-bold flex justify-center items-center gap-2 mb-2">
-            Welcome to{` `}
-            <div className="ring flex flex-wrap justify-center rounded items-center text-center ring-blue-500" >  
+          <h1 className="text-xl font-bold text-center flex justify-center items-center gap-2 mb-2">
+            <div className="ring flex flex-row justify-center rounded items-center text-center ring-blue-500" >  
             <span className="text-blue-500 dark:bg-white/10 shadow-md bg-white rounded-l px-1 pl-2 ">
               MANIFEST
             </span>

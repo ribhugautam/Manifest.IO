@@ -20,7 +20,7 @@ function NavBar(props) {
     <div className="bg-blue-500 dark:bg-[#1B1A55] text-white p-4">
       <div className="flex justify-between items-center max-w-[1180px] mx-auto w-11/12">
         <Link to="/" className="ring ring-blue-500 rounded" >
-        <div className="ring flex flex-wrap text-xl font-bold justify-center rounded items-center text-center ring-blue-500" >  
+        <div className="ring flex flex-row text-xl font-bold justify-center rounded items-center text-center ring-blue-500" >  
             <span className="text-blue-500 dark:bg-white/10 shadow-md bg-white rounded-l px-1 pl-2 ">
               MANIFEST
             </span>
