@@ -19,8 +19,12 @@ function Dashboard(props) {
   let fileURL = null;
 
   const uploadFile = async () => {
+    if (todo === null) {
+      console.error("todo is null");
+      return;
+    }
     if (file === null) {
-      console.log("file is null");
+      console.error("file is null");
       return;
     }
     try {
@@ -30,14 +34,18 @@ function Dashboard(props) {
         file
       );
       fileID = fileUploaded.$id
-
     } catch (error) {
-      console.error("Error uploading file", error);
+      if (error instanceof Error) {
+        console.error("Error uploading file", error);
+      } else {
+        console.error("Error uploading file", {"error": error});
+      }
       toast.error("Error uploading file", {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
   };
+
   
 
   const deleteFile = async (fileId) => {
@@ -204,6 +212,11 @@ function Dashboard(props) {
                 <p className="text-sm font-normal text-gray-500 ">
                   What's on your mind?
                 </p>
+
+                <p className="text-sm font-normal text-gray-500 ">
+                  {alltodos.length} posts
+                </p>
+
               </div>
               <br />
               <div className="relative">
