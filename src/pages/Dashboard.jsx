@@ -23,10 +23,7 @@ function Dashboard(props) {
       console.error("todo is null");
       return;
     }
-    if (file === null) {
-      console.error("file is null");
-      return;
-    }
+
     try {
       const fileUploaded = await storage.createFile(
         import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
@@ -292,7 +289,7 @@ function Dashboard(props) {
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className="bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg p-4 mb-4"
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg ${todo.fileid === null ? "p-4" : "py-6 px-2"} mb-4`}
                       >
                         <div className="flex justify-between items-center">
                           <p className="text-[10px] text-blue-500 font-semibold ">
@@ -304,7 +301,7 @@ function Dashboard(props) {
                         </div>
 
                         
-                        <div className="w-full" >
+                        <div className={`w-full shadow-inner  rounded bg-slate-100 dark:bg-[#070F2B] ${todo.fileid === null ? "p-0" : "p-4"} `} >
                         {todo.fileid !== null  ? (
                           <div className="h-[250px] rounded flex justify-center w-full" >
                           {todo.fileurl.includes('loading') ? (
@@ -315,7 +312,7 @@ function Dashboard(props) {
                             </svg>
                           </div>
                           ) : (
-                            <img src={todo.fileurl} alt='post' className="object-cover shadow-md rounded"/>
+                            <img src={todo.fileurl} alt='post' className={`object-cover rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}/>
                           )}
                           </div>
                         ) : null}
