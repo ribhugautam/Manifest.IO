@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { account, database } from "../appwrite/config";
+import { account, database, storage } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Query } from "appwrite";
+import { ID } from "appwrite";
+import { RiAttachment2 } from "react-icons/ri";
+import { RxCross2 } from "react-icons/rx";
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -12,17 +14,21 @@ function Dashboard(props) {
   const [alltodos, setAlltodos] = useState([]);
   const [newtodo, setNewtodo] = useState("");
   const [edit, setEdit] = useState(false);
+  const [file, setFile] = useState(null);
 
   const addTodo = async () => {
     try {
       if (todo === "") {
-        toast.error("Please enter a Post",{className:"dark:bg-[#070F2B] dark:text-white"});
+        toast.error("Please enter a Post", {
+          className: "dark:bg-[#070F2B] dark:text-white",
+        });
         return;
       }
+
       const data = await database.createDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        "unique()",
+        ID.unique(),
         {
           todo: todo,
           email: email,
@@ -30,9 +36,14 @@ function Dashboard(props) {
         }
       );
       setTodo("");
-      toast.success("Post added successfully",{className:"dark:bg-white/5 dark:text-white"});
+      setFile(null);
+      toast.success("Post added successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     } catch (error) {
-      toast.error("Error adding post",{className:"dark:bg-white/5 dark:text-white"});
+      toast.error("Error adding post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     }
   };
 
@@ -54,43 +65,53 @@ function Dashboard(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         []
       );
-      console.log(response.documents);
+
       setAlltodos(response.documents);
     } catch (error) {
       console.log(error);
     }
   }
 
-  const deleteTodo = async (id, vemail) => {
+  const deleteTodo = async (id, vemail, vfileid) => {
     if (vemail === null || vemail === undefined) {
-      console.error('Null or undefined vemail in deleteTodo');
+      console.error("Null or undefined vemail in deleteTodo");
       return;
     }
+
     if (email === null || email === undefined) {
-      console.error('Null or undefined email in deleteTodo');
+      console.error("Null or undefined email in deleteTodo");
       return;
     }
+
     if (vemail !== email) {
-      toast.error("You are not authorized to delete this post",{className:"dark:bg-[#070F2B] dark:text-white"});
+      toast.error("You are not authorized to delete this post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
       return;
     }
+
     try {
       const data = await database.deleteDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         id
       );
-      toast.success("Post deleted successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
+      toast.success("Post deleted successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     } catch (error) {
-      console.error('Error deleting post', error);
-      toast.error("Error deleting post",{className:"dark:bg-[#070F2B] dark:text-white"});
+      console.error("Error deleting post", error);
+      toast.error("Error deleting post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     }
   };
 
-
   const editTodo = async (id, vemail, vtodo) => {
     if (vemail !== email) {
-      toast.error("You are not authorized to edit this post",{className:"dark:bg-[#070F2B] dark:text-white"});
+      toast.error("You are not authorized to edit this post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
       return;
     }
     try {
@@ -102,9 +123,13 @@ function Dashboard(props) {
           todo: newtodo,
         }
       );
-      toast.success("Post edited successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
+      toast.success("Post edited successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     } catch (error) {
-      toast.error("Error editing post",{className:"dark:bg-[#070F2B] dark:text-white"});
+      toast.error("Error editing post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
     }
     setNewtodo("");
   };
@@ -131,12 +156,36 @@ function Dashboard(props) {
                   type="text"
                   value={todo}
                   onChange={(e) => setTodo(e.target.value)}
-                  className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 rounded-md focus:outline-none pr-[4rem] ring ring-blue-500 "
+                  className="w-80 h-10 px-4 dark:bg-transparent break-words py-2 rounded-md focus:outline-none pr-[6rem] ring ring-blue-500 "
                   placeholder="Add Post"
                 />
 
+                <div className="absolute right-[70px] top-2 cursor-pointer h-full">
+                  {file === null ? (
+                    <label htmlFor="file">
+                      <RiAttachment2
+                        size={24}
+                        className="text-blue-500 cursor-pointer "
+                      />
+                    </label>
+                  ) : (
+                    <button onClick={() => setFile(null)}>
+                      <RxCross2
+                        size={24}
+                        className="text-blue-500 cursor-pointer "
+                      />
+                    </button>
+                  )}
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    className="hidden"
+                  />
+                </div>
+
                 <button
-                  onClick={addTodo}
+                  onClick={() => {addTodo();}}
                   className="bg-blue-500 shadow-md absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
                 >
                   Post
@@ -170,8 +219,11 @@ function Dashboard(props) {
               <div className=" w-full overflow-y-scroll max-h-[400px] mt-8  ">
                 {alltodos.length > 0 ? (
                   <div className="w-full flex flex-col-reverse ">
-                    {alltodos.map((todo) => (
-                      <div className="bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg p-4 mb-4">
+                    {alltodos.map((todo, index) => (
+                      <div
+                        key={index}
+                        className="bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg p-4 mb-4"
+                      >
                         <div className="flex justify-between items-center">
                           <p className="text-[10px] text-blue-500 font-semibold ">
                             {todo.name}
@@ -201,7 +253,9 @@ function Dashboard(props) {
                               )}
                               <button
                                 className="bg-red-500 shadow-md bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200"
-                                onClick={() => deleteTodo(todo.$id, todo.email)}
+                                onClick={() =>{
+                                  deleteTodo(todo.$id, todo.email);}
+                                }
                               >
                                 Delete
                               </button>
