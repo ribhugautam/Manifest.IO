@@ -294,10 +294,11 @@ function Dashboard(props) {
                           </p>
                         </div>
 
+                        
                         <div className="w-full" >
                         {todo.fileid !== null  ? (
-                          <div className="h-[150px] rounded flex justify-center w-full" >
-                          <img src={todo.fileurl} alt='post' className="object-cover rounded"/>
+                          <div className="h-[250px] rounded flex justify-center w-full" >
+                          <img src={todo.fileurl} alt='post' className="object-cover shadow-md rounded"/>
                           </div>
                         ) : null}
                         </div>
