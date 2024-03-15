@@ -3,7 +3,7 @@ import { account, database, storage } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ID } from "appwrite";
-import { RiAttachment2 } from "react-icons/ri";
+import { IoImageOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
 function Dashboard(props) {
@@ -15,16 +15,68 @@ function Dashboard(props) {
   const [newtodo, setNewtodo] = useState("");
   const [edit, setEdit] = useState(false);
   const [file, setFile] = useState(null);
+  let fileID = null;
+  let fileURL = null;
+
+  const uploadFile = async () => {
+    if (file === null) {
+      console.log("file is null");
+      return;
+    }
+    try {
+      const fileUploaded = await storage.createFile(
+        import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
+        ID.unique(),
+        file
+      );
+      fileID = fileUploaded.$id
+
+    } catch (error) {
+      console.error("Error uploading file", error);
+      toast.error("Error uploading file", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
+    }
+  };
+  
+
+  const deleteFile = async (fileId) => {
+    if (fileId === null || fileId === undefined) {
+      console.log("fileId is null or undefined");
+      return;
+    }
+    try {
+      await storage.deleteFile(import.meta.env.VITE_APP_APPWRITE_BUCKET_ID, fileId);
+    } catch (error) {
+      console.error("Error deleting file", error);
+      toast.error("Error deleting file", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
+    }
+  }
+
+  const previewFile = async () => {
+    try {
+      const filepreview = await storage.getFilePreview(
+        import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
+        fileID
+      )
+      fileURL = filepreview.href;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const addTodo = async () => {
+    if (todo === "") {
+      toast.error("Please enter a Post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
+      return;
+    }
+    await previewFile();
     try {
-      if (todo === "") {
-        toast.error("Please enter a Post", {
-          className: "dark:bg-[#070F2B] dark:text-white",
-        });
-        return;
-      }
-
       const data = await database.createDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
@@ -33,6 +85,8 @@ function Dashboard(props) {
           todo: todo,
           email: email,
           name: name,
+          fileid: fileID,
+          fileurl: fileURL,
         }
       );
       setTodo("");
@@ -41,6 +95,7 @@ function Dashboard(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     } catch (error) {
+      console.error("Error adding post", error);
       toast.error("Error adding post", {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
@@ -163,7 +218,7 @@ function Dashboard(props) {
                 <div className="absolute right-[70px] top-2 cursor-pointer h-full">
                   {file === null ? (
                     <label htmlFor="file">
-                      <RiAttachment2
+                      <IoImageOutline
                         size={24}
                         className="text-blue-500 cursor-pointer "
                       />
@@ -185,7 +240,13 @@ function Dashboard(props) {
                 </div>
 
                 <button
-                  onClick={() => {addTodo();}}
+                  onClick={async () => {
+                    const upload = uploadFile();
+                    setTodo("");
+                    setFile(null);
+                    await upload;
+                    addTodo();
+                  }}
                   className="bg-blue-500 shadow-md absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
                 >
                   Post
@@ -233,6 +294,14 @@ function Dashboard(props) {
                           </p>
                         </div>
 
+                        <div className="w-full" >
+                        {todo.fileid !== null  ? (
+                          <div className="h-[150px] rounded flex justify-center w-full" >
+                          <img src={todo.fileurl} alt='post' className="object-cover rounded"/>
+                          </div>
+                        ) : null}
+                        </div>
+
                         <p className="text-md max-w-[15rem] break-words font-semibold">
                           {todo.todo}
                         </p>
@@ -254,7 +323,7 @@ function Dashboard(props) {
                               <button
                                 className="bg-red-500 shadow-md bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200"
                                 onClick={() =>{
-                                  deleteTodo(todo.$id, todo.email);}
+                                  deleteTodo(todo.$id, todo.email); deleteFile(todo.fileid); }
                                 }
                               >
                                 Delete
