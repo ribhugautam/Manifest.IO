@@ -7,6 +7,9 @@ import { IoImageOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { IoSendOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
+import { FcLikePlaceholder } from "react-icons/fc";
+import { FcLike } from "react-icons/fc";
+
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -19,6 +22,7 @@ function Dashboard(props) {
   const [file, setFile] = useState(null);
   let fileID = null;
   let fileURL = null;
+  const [like, setLike] = useState(false);
 
   const uploadFile = async () => {
     if (todo === null || file === null) {
@@ -74,6 +78,26 @@ function Dashboard(props) {
       console.log(error);
     }
   };
+
+  const likeTodo = async (id) => {
+
+    try {
+      const data = await database.updateDocument(
+        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
+        id,
+        {
+          Likes: like ? like - 1 : like + 1,
+        }
+      );
+    } catch (error) {
+      console.error("Error liking post", error);
+      toast.error("Error liking post", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      });
+    }
+    setLike(!like);
+  }
 
   const addTodo = async () => {
     if (todo === "") {
@@ -212,7 +236,7 @@ function Dashboard(props) {
                   What's on your mind?
                 </p>
               </div>
-              <div className="relative">
+              <div className="relative mt-4">
                 <input
                   type="text"
                   value={todo}
@@ -308,7 +332,7 @@ function Dashboard(props) {
                           } `}
                         >
                           {todo.fileid !== null ? (
-                            <div className="h-[250px] rounded flex justify-center w-full">
+                            <div className="h-[200px] rounded flex justify-center w-full">
                               {todo.fileurl.includes("loading") ? (
                                 <div className="flex justify-center items-center h-full rounded">
                                   <svg
@@ -343,12 +367,18 @@ function Dashboard(props) {
                           ) : null}
                         </div>
 
-                        <p className="text-md max-w-[15rem] break-words font-semibold">
+                        <p className="text-sm max-w-[15rem] break-words font-semibold">
                           {todo.todo}
                         </p>
 
                         {todo.email == email && (
-                          <div className="flex flex-col gap-2 justify-center ">
+                          <div className="flex gap-2 justify-between items-center ">
+                            <div className="flex flex-col justify-center items-center" >
+                              <button onClick={() => likeTodo(todo.$id)} className="text-blue-500 hover:scale-105 transition-all duration-200 " >
+                              {like ? <FcLike size={24} /> : <FcLikePlaceholder size={24} />}
+                              </button>
+                              <span className="text-[10px] font-semibold" >{todo.Likes} {todo.Likes > 1 ? "Likes" : "Like"} </span>
+                            </div>
                             <div className=" text-[10px] flex gap-1 justify-end ">
                               {newtodo !== "" && edit && (
                                 <button
@@ -362,7 +392,7 @@ function Dashboard(props) {
                                 </button>
                               )}
                               <button
-                                className="bg-red-500 shadow-md bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200"
+                                className="bg-red-500 shadow-md bottom-1 text-white font-semibold  p-2 rounded-full hover:bg-red-600 transition-all text-[10px] duration-200"
                                 onClick={() => {
                                   deleteTodo(todo.$id, todo.email);
                                   deleteFile(todo.fileid);

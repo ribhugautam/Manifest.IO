@@ -53,10 +53,10 @@ function Login(props) {
               value={email}
               required
               onChange={(event) => setEmail(event.target.value)}
-              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-1 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-8">
             <label
               htmlFor="password"
               className="block text-gray-700 dark:text-white font-bold mb-2"
@@ -70,13 +70,13 @@ function Login(props) {
               value={password}
               required
               onChange={(event) => setPassword(event.target.value)}
-              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="appearance-none dark:bg-transparent ring-blue-500 ring rounded-lg w-full py-1 px-3 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 shadow-md rounded focus:outline-none focus:shadow-outline"
             >
               Login
             </button>
