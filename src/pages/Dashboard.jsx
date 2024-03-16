@@ -324,7 +324,7 @@ function Dashboard(props) {
                         </div>
 
                         <div
-                          className={`w-full shadow-inner  rounded bg-slate-100 dark:bg-[#070F2B] ${
+                          className={`w-full shadow-inner  rounded bg-slate-300 dark:bg-[#050b20] ${
                             todo.fileid === null ? "p-0" : "p-4"
                           } `}
                         >
