@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { account } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { CiLogin } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
+import { TbLayoutDashboard } from "react-icons/tb";
 
 function NavBar(props) {
   const isLoggedin = props.isLoggedin;
@@ -37,14 +40,14 @@ function NavBar(props) {
         <div className="flex gap-2">
           {!isLoggedin && (
             <Link to="/Login">
-              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
-                LogIn
+              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
+              <CiLogin size={24} />
               </button>
             </Link>
           )}
           {!isLoggedin && (
             <Link to="/Register">
-              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
+              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
                 Register
               </button>
             </Link>
@@ -53,17 +56,17 @@ function NavBar(props) {
           {isLoggedin && (
             <Link to="/Login">
               <button
-                className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 "
+                className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 "
                 onClick={onLogout}
               >
-                LogOut
+                <CiLogout size={24} />
               </button>
             </Link>
           )}
           {isLoggedin && (
             <Link to="/Dashboard">
-              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-700 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
-                DashBoard
+              <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
+              Dashboard
               </button>
             </Link>
           )}

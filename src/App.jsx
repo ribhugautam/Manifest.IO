@@ -6,6 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import NavBar from "./components/NavBar";
 import { useEffect, useState } from "react";
 import Privateroute from "./components/Privateroute";
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdOutlineNightlight } from "react-icons/md";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -52,7 +54,7 @@ function App() {
         />
         <Route path="*" element={<Home />} />
       </Routes>
-      <button className="fixed bg-white hover:bg-[#070F2B] text-blue-500 hover:text-white dark:hover:text-blue-500 font-semibold rounded px-2 py-1 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 right-2" onClick={toggleTheme} >{toggle === 'light' ? 'Light' : 'Dark'}</button>
+      <button className="fixed bg-white hover:bg-[#0f1c4cda] text-blue-500 dark:hover:text-blue-500 font-semibold rounded-full p-2 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 right-2" onClick={toggleTheme} >{toggle === 'light' ? (<MdOutlineLightMode size={20} />) : (<MdOutlineNightlight size={20} />)}</button>
     </div>
   );
 }

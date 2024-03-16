@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { ID } from "appwrite";
 import { IoImageOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { IoSendOutline } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
 
 function Dashboard(props) {
   const navigate = useNavigate();
@@ -30,12 +32,12 @@ function Dashboard(props) {
         ID.unique(),
         file
       );
-      fileID = fileUploaded.$id
+      fileID = fileUploaded.$id;
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error uploading file", error);
       } else {
-        console.error("Error uploading file", {"error": error});
+        console.error("Error uploading file", { error: error });
       }
       toast.error("Error uploading file", {
         className: "dark:bg-[#070F2B] dark:text-white",
@@ -43,35 +45,35 @@ function Dashboard(props) {
     }
   };
 
-  
-
   const deleteFile = async (fileId) => {
     if (fileId === null || fileId === undefined) {
       console.log("fileId is null or undefined");
       return;
     }
     try {
-      await storage.deleteFile(import.meta.env.VITE_APP_APPWRITE_BUCKET_ID, fileId);
+      await storage.deleteFile(
+        import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
+        fileId
+      );
     } catch (error) {
       console.error("Error deleting file", error);
       toast.error("Error deleting file", {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
-  }
+  };
 
   const previewFile = async () => {
     try {
       const filepreview = await storage.getFilePreview(
         import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
         fileID
-      )
+      );
       fileURL = filepreview.href;
-      
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const addTodo = async () => {
     if (todo === "") {
@@ -200,7 +202,7 @@ function Dashboard(props) {
 
   return (
     <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
-      <div className="flex flex-col items-center justify-center h-full w-11/12 max-w-[1180px] mx-auto ">
+      <div className="flex flex-col items-center  h-full w-11/12 max-w-[1180px] mx-auto ">
         {name ? (
           <>
             <div className="flex flex-col justify-between items-center gap-4 ">
@@ -209,9 +211,7 @@ function Dashboard(props) {
                 <p className="text-sm font-normal text-gray-500 ">
                   What's on your mind?
                 </p>
-
               </div>
-              <br />
               <div className="relative">
                 <input
                   type="text"
@@ -255,7 +255,7 @@ function Dashboard(props) {
                   }}
                   className="bg-blue-500 shadow-md absolute right-0 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md"
                 >
-                  Post
+                  <IoSendOutline size={24} />
                 </button>
               </div>
 
@@ -278,7 +278,7 @@ function Dashboard(props) {
                     onClick={() => setEdit(!edit)}
                   >
                     {" "}
-                    {edit ? "Cancel" : "Edit a post"}{" "}
+                    {edit ? (<RxCross2 size={24} />) : ("Edit a post")}{" "}
                   </button>
                 }
               </div>
@@ -289,7 +289,9 @@ function Dashboard(props) {
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg ${todo.fileid === null ? "p-4" : "py-6 px-2"} mb-4`}
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg ${
+                          todo.fileid === null ? "p-4" : "py-6 px-2"
+                        } mb-4`}
                       >
                         <div className="flex justify-between items-center">
                           <p className="text-[10px] text-blue-500 font-semibold ">
@@ -300,22 +302,45 @@ function Dashboard(props) {
                           </p>
                         </div>
 
-                        
-                        <div className={`w-full shadow-inner  rounded bg-slate-100 dark:bg-[#070F2B] ${todo.fileid === null ? "p-0" : "p-4"} `} >
-                        {todo.fileid !== null  ? (
-                          <div className="h-[250px] rounded flex justify-center w-full" >
-                          {todo.fileurl.includes('loading') ? (
-                            <div className="flex justify-center items-center h-full rounded">
-                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                          </div>
-                          ) : (
-                            <img src={todo.fileurl} alt='post' className={`object-cover rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}/>
-                          )}
-                          </div>
-                        ) : null}
+                        <div
+                          className={`w-full shadow-inner  rounded bg-slate-100 dark:bg-[#070F2B] ${
+                            todo.fileid === null ? "p-0" : "p-4"
+                          } `}
+                        >
+                          {todo.fileid !== null ? (
+                            <div className="h-[250px] rounded flex justify-center w-full">
+                              {todo.fileurl.includes("loading") ? (
+                                <div className="flex justify-center items-center h-full rounded">
+                                  <svg
+                                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <circle
+                                      className="opacity-25"
+                                      cx="12"
+                                      cy="12"
+                                      r="10"
+                                      stroke="currentColor"
+                                      strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                      className="opacity-75"
+                                      fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                    ></path>
+                                  </svg>
+                                </div>
+                              ) : (
+                                <img
+                                  src={todo.fileurl}
+                                  alt="post"
+                                  className={`object-cover rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}
+                                />
+                              )}
+                            </div>
+                          ) : null}
                         </div>
 
                         <p className="text-md max-w-[15rem] break-words font-semibold">
@@ -338,11 +363,12 @@ function Dashboard(props) {
                               )}
                               <button
                                 className="bg-red-500 shadow-md bottom-1 text-white font-semibold py-1 p-2 rounded hover:bg-red-600 transition-all text-[10px] duration-200"
-                                onClick={() =>{
-                                  deleteTodo(todo.$id, todo.email); deleteFile(todo.fileid); }
-                                }
+                                onClick={() => {
+                                  deleteTodo(todo.$id, todo.email);
+                                  deleteFile(todo.fileid);
+                                }}
                               >
-                                Delete
+                                <AiOutlineDelete size={12} />
                               </button>
                             </div>
                           </div>
