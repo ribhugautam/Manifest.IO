@@ -77,14 +77,14 @@ function Dashboard(props) {
     }
   };
 
-  const likeTodo = async (id) => {
+  const likeTodo = async (id, Likes) => {
     try {
       const data = await database.updateDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         id,
         {
-          Likes: like ? like - 1 : like + 1,
+          Likes: like ? Likes - 1 : Likes + 1,
         }
       );
     } catch (error) {
@@ -372,7 +372,7 @@ function Dashboard(props) {
                         <div className="flex gap-2 justify-between items-center ">
                           <div className="flex flex-col justify-center items-center">
                             <button
-                              onClick={() => likeTodo(todo.$id)}
+                              onClick={() => likeTodo(todo.$id, todo.Likes)}
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
                               {like ? (
