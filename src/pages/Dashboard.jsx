@@ -10,7 +10,6 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 
-
 function Dashboard(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -80,7 +79,6 @@ function Dashboard(props) {
   };
 
   const likeTodo = async (id) => {
-
     try {
       const data = await database.updateDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
@@ -97,7 +95,7 @@ function Dashboard(props) {
       });
     }
     setLike(!like);
-  }
+  };
 
   const addTodo = async () => {
     if (todo === "") {
@@ -302,7 +300,7 @@ function Dashboard(props) {
                     onClick={() => setEdit(!edit)}
                   >
                     {" "}
-                    {edit ? (<RxCross2 size={24} />) : ("Edit a post")}{" "}
+                    {edit ? <RxCross2 size={24} /> : "Edit a post"}{" "}
                   </button>
                 }
               </div>
@@ -318,9 +316,7 @@ function Dashboard(props) {
                         } mb-4`}
                       >
                         <div className="flex justify-between items-center">
-                          <p className="text-[10px] text-blue-500 font-semibold ">
-                            {todo.name}
-                          </p>
+                          <p className="text-[10px] font-semibold " >Posted on</p>
                           <p className="text-[10px] font-semibold ">
                             {new Date(todo.$createdAt).toLocaleString()}
                           </p>
@@ -367,17 +363,26 @@ function Dashboard(props) {
                           ) : null}
                         </div>
 
-                        <p className="text-sm max-w-[15rem] break-words font-semibold">
-                          {todo.todo}
+                        <p className="text-[10px] max-w-[15rem] break-words font-semibold ">
+                          <span className="text-blue-500" >{todo.name}</span> {todo.todo}
                         </p>
 
                         {todo.email == email && (
                           <div className="flex gap-2 justify-between items-center ">
-                            <div className="flex flex-col justify-center items-center" >
-                              <button onClick={() => likeTodo(todo.$id)} className="text-blue-500 hover:scale-105 transition-all duration-200 " >
-                              {like ? <FcLike size={24} /> : <FcLikePlaceholder size={24} />}
+                            <div className="flex flex-col justify-center items-center">
+                              <button
+                                onClick={() => likeTodo(todo.$id)}
+                                className="text-blue-500 hover:scale-105 transition-all duration-200 "
+                              >
+                                {like ? (
+                                  <FcLike size={24} />
+                                ) : (
+                                  <FcLikePlaceholder size={24} />
+                                )}
                               </button>
-                              <span className="text-[10px] font-semibold" >{todo.Likes} {todo.Likes > 1 ? "Likes" : "Like"} </span>
+                              <span className="text-[10px] font-semibold">
+                                {todo.Likes} {todo.Likes > 1 ? "Likes" : "Like"}{" "}
+                              </span>
                             </div>
                             <div className=" text-[10px] flex gap-1 justify-end ">
                               {newtodo !== "" && edit && (
