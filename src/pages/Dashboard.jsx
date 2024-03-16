@@ -315,8 +315,10 @@ function Dashboard(props) {
                           todo.fileid === null ? "p-4" : "py-6 px-2"
                         } mb-4`}
                       >
-                        <div className="flex justify-between items-center">
-                          <p className="text-[10px] font-semibold " >Posted on</p>
+                        <div className="flex justify-between items-center text-slate-500 ">
+                          <p className="text-[10px] font-semibold ">
+                            Posted on
+                          </p>
                           <p className="text-[10px] font-semibold ">
                             {new Date(todo.$createdAt).toLocaleString()}
                           </p>
@@ -364,7 +366,8 @@ function Dashboard(props) {
                         </div>
 
                         <p className="text-[10px] max-w-[15rem] break-words font-semibold ">
-                          <span className="text-blue-500" >{todo.name}</span> {todo.todo}
+                          <span className="text-blue-500">{todo.name}</span>{" "}
+                          {todo.todo}
                         </p>
 
                         {todo.email == email && (
