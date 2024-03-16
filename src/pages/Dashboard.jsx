@@ -25,7 +25,6 @@ function Dashboard(props) {
 
   const uploadFile = async () => {
     if (todo === null || file === null) {
-      console.error("todo is null");
       return;
     }
 
@@ -98,8 +97,8 @@ function Dashboard(props) {
   };
 
   const addTodo = async () => {
-    if (todo === "") {
-      toast.error("Please enter a Post", {
+    if (todo === "" && file === null) {
+      toast.error("Nothing to Post", {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
       return;
