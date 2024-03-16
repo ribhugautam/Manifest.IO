@@ -369,23 +369,23 @@ function Dashboard(props) {
                           {todo.todo}
                         </p>
 
-                        {todo.email == email && (
-                          <div className="flex gap-2 justify-between items-center ">
-                            <div className="flex flex-col justify-center items-center">
-                              <button
-                                onClick={() => likeTodo(todo.$id)}
-                                className="text-blue-500 hover:scale-105 transition-all duration-200 "
-                              >
-                                {like ? (
-                                  <FcLike size={24} />
-                                ) : (
-                                  <FcLikePlaceholder size={24} />
-                                )}
-                              </button>
-                              <span className="text-[10px] font-semibold">
-                                {todo.Likes} {todo.Likes > 1 ? "Likes" : "Like"}{" "}
-                              </span>
-                            </div>
+                        <div className="flex gap-2 justify-between items-center ">
+                          <div className="flex flex-col justify-center items-center">
+                            <button
+                              onClick={() => likeTodo(todo.$id)}
+                              className="text-blue-500 hover:scale-105 transition-all duration-200 "
+                            >
+                              {like ? (
+                                <FcLike size={24} />
+                              ) : (
+                                <FcLikePlaceholder size={24} />
+                              )}
+                            </button>
+                            <span className="text-[10px] font-semibold">
+                              {todo.Likes} {todo.Likes > 1 ? "Likes" : "Like"}{" "}
+                            </span>
+                          </div>
+                          {todo.email == email && (
                             <div className=" text-[10px] flex gap-1 justify-end ">
                               {newtodo !== "" && edit && (
                                 <button
@@ -408,8 +408,8 @@ function Dashboard(props) {
                                 <AiOutlineDelete size={12} />
                               </button>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
