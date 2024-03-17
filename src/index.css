@@ -10,3 +10,7 @@
     scroll-behavior: smooth;
     @apply transition-colors ease-linear duration-200;
 }
+
+body{
+    @apply bg-slate-100 dark:bg-[#070F2B] 
+}
