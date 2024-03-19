@@ -224,9 +224,9 @@ function Home(props) {
           <>
             <div className="flex flex-col justify-between items-center gap-4 ">
 
-              <div className="mt-8  ">
+              <div className= "mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="flex flex-wrap justify-center items-center gap-4  ">
+                  <div className="flex flex-wrap justify-center items-center w-[300px] max-w-[400px] gap-4  ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
@@ -243,46 +243,17 @@ function Home(props) {
                           </p>
                         </div>
 
+                        {todo.fileid &&
                         <div
-                          className={`w-full shadow-inner  rounded bg-slate-300 dark:bg-[#050b20] ${
+                          className={`max-h-[250px] flex aspect-square justify-center items-center shadow-inner rounded bg-slate-300 dark:bg-[#050b20]  ${
                             todo.fileid === null ? "p-0" : "p-4"
                           } `}
                         >
                           {todo.fileid !== null ? (
-                            <div className="h-[200px] rounded flex justify-center w-full">
-                              {todo.fileurl.includes("loading") ? (
-                                <div className="flex justify-center w-full items-center h-full rounded">
-                                  <svg
-                                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <circle
-                                      className="opacity-25"
-                                      cx="12"
-                                      cy="12"
-                                      r="10"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                    ></circle>
-                                    <path
-                                      className="opacity-75"
-                                      fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                  </svg>
-                                </div>
-                              ) : (
-                                <img
-                                  src={todo.fileurl}
-                                  alt="post"
-                                  className={`object-cover max-w-[350px] rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}
-                                />
-                              )}
-                            </div>
+                              <img src={todo.fileurl} alt="post" className=" object-cover rounded max-h-[200px]" />
                           ) : null}
                         </div>
+                        }
 
                         <p className="text-[10px] max-w-[15rem] break-words font-semibold ">
                           <span className="text-blue-500">{todo.name}</span>{" "}
