@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FcLikePlaceholder } from "react-icons/fc";
+import { FcLike } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 function Home(props) {
   const isLoggedin = props.isLoggedin;
@@ -61,23 +63,17 @@ function Home(props) {
 
   const isLogin = async () => {
     try {
-      viewTodos();
       const user = await account.get("current");
       setName(user.name);
       setEmail(user.email);
+      viewTodos();
+      {
+        !isLoggedin && account.deleteSession("current");
+      }
     } catch (error) {
       console.error("Error getting user", error);
       setName("");
       setEmail("");
-    }
-  };
-
-  const anonamousLogin = async () => {
-    try {
-      await account.createAnonymousSession("anonymous");
-      viewTodos();
-    } catch (error) {
-      console.error("Error creating anonymous session", error);
     }
   };
 
@@ -95,10 +91,6 @@ function Home(props) {
       console.log(error);
     }
     setIsLoading(false);
-  }
-
-  {
-    !isLoggedin && account.deleteSession("current");
   }
 
   const deleteTodo = async (id, vemail, vfileid) => {
@@ -141,7 +133,10 @@ function Home(props) {
   };
 
   useEffect(() => {
-    isLogin();
+    if (isLoggedin) {
+      isLogin();
+    }
+    viewTodos();
   }, [alltodos]);
 
   return (
@@ -153,6 +148,11 @@ function Home(props) {
             <p className="text-sm font-normal text-gray-500 ">
               Checkout latest post`s
             </p>
+            {!name &&
+              <p className="text-sm font-normal text-gray-500 ">
+                <span className="text-blue-500 italic" ><Link to="/Login" >Login</Link> or <Link to="/register" >Sign up</Link></span> to add your own.
+              </p>
+            }
           </div>
         </div>
         {isLoading ? (
@@ -165,7 +165,7 @@ function Home(props) {
                       <div
                         key={index}
                         className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full max-w-[400px] rounded-lg ${
-                          todo.fileid === null ? "p-4" : "py-6 px-2"
+                          todo.fileid === null ? "py-4 px-2" : "py-6 px-2"
                         } mb-4`}
                       >
                         <div className="flex justify-between items-center text-slate-500 ">

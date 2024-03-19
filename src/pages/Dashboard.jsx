@@ -343,7 +343,7 @@ function Dashboard(props) {
                       <div
                         key={index}
                         className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full max-w-[400px] rounded-lg ${
-                          todo.fileid === null ? "p-4" : "py-6 px-2"
+                          todo.fileid === null ? "py-4 px-2" : "py-6 px-2"
                         } mb-4`}
                       >
                         <div className="flex flex-wrap justify-between items-center text-slate-500 ">

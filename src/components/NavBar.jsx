@@ -48,7 +48,7 @@ function NavBar(props) {
           {!isLoggedin && (
             <Link to="/Register">
               <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
-                Register
+                Sign up
               </button>
             </Link>
           )}
