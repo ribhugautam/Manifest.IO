@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Privateroute from "./components/Privateroute";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineNightlight } from "react-icons/md";
+import { IoIosArrowUp } from "react-icons/io";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -15,23 +16,24 @@ function App() {
   const [newpost, setNewpost] = useState(null);
 
   useEffect(() => {
-    setToggle(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
-  },[])
-
+    setToggle(
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "light"
+        : "dark"
+    );
+  }, []);
 
   useEffect(() => {
-
-    if (toggle === 'light') {
-      document.documentElement.classList.add('dark');
+    if (toggle === "light") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
-    
-  },[toggle])
+  }, [toggle]);
 
   const toggleTheme = () => {
-    setToggle(toggle === 'dark' ? 'light' : 'dark');
-  }
+    setToggle(toggle === "dark" ? "light" : "dark");
+  };
 
   return (
     <div className="flex flex-col h-screen ">
@@ -55,7 +57,23 @@ function App() {
         />
         <Route path="*" element={<Home isLoggedin={isLoggedin} />} />
       </Routes>
-      <button className="fixed bg-white hover:bg-[#0f1c4cda] text-blue-500 dark:hover:text-blue-500 font-semibold rounded-full p-2 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 right-2" onClick={toggleTheme} >{toggle === 'light' ? (<MdOutlineLightMode size={20} />) : (<MdOutlineNightlight size={20} />)}</button>
+      <button
+        className="fixed bg-white hover:bg-[#0f1c4cda] text-blue-500 dark:hover:text-blue-500 font-semibold rounded-full p-2 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 left-2"
+        onClick={toggleTheme}
+      >
+        {toggle === "light" ? (
+          <MdOutlineLightMode size={20} />
+        ) : (
+          <MdOutlineNightlight size={20} />
+        )}
+      </button>
+
+      <button
+        className="fixed bg-white hover:bg-[#0f1c4cda] text-blue-500 dark:hover:text-blue-500 font-semibold rounded-full p-2 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 right-2"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <IoIosArrowUp size={20} />
+      </button>
     </div>
   );
 }

@@ -30,7 +30,7 @@ function Dashboard(props) {
 
     toast.loading("Uploading file...", {
       className: "dark:bg-[#070F2B] dark:text-white",
-    })
+    });
 
     try {
       const fileUploaded = await storage.createFile(
@@ -93,14 +93,13 @@ function Dashboard(props) {
           Likes: like ? Likes - 1 : Likes + 1,
         }
       );
-      !like ?
-      toast.success("Liked successfully", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      })
-      :
-      toast.success("Unliked successfully", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      })
+      !like
+        ? toast.success("Liked successfully", {
+            className: "dark:bg-[#070F2B] dark:text-white",
+          })
+        : toast.success("Unliked successfully", {
+            className: "dark:bg-[#070F2B] dark:text-white",
+          });
     } catch (error) {
       console.error("Error liking post", error);
       toast.error("Error liking post", {
@@ -120,7 +119,7 @@ function Dashboard(props) {
     await previewFile();
     toast.loading("Adding post...", {
       className: "dark:bg-[#070F2B] dark:text-white",
-    })
+    });
     try {
       const data = await database.createDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
@@ -145,7 +144,7 @@ function Dashboard(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
-  toast.dismiss();
+    toast.dismiss();
   };
 
   const isLogin = async () => {
@@ -164,7 +163,7 @@ function Dashboard(props) {
       let response = await database.listDocuments(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        [Query.equal("email", email)],
+        [Query.equal("email", email)]
       );
 
       setAlltodos(response.documents.reverse());
@@ -174,7 +173,6 @@ function Dashboard(props) {
   }
 
   const deleteTodo = async (id, vemail, vfileid) => {
-
     if (vemail === null || vemail === undefined) {
       console.error("Null or undefined vemail in deleteTodo");
       return;
@@ -194,7 +192,7 @@ function Dashboard(props) {
 
     toast.loading("Deleting post...", {
       className: "dark:bg-[#070F2B] dark:text-white",
-    })
+    });
 
     try {
       const data = await database.deleteDocument(
@@ -224,7 +222,7 @@ function Dashboard(props) {
 
     toast.loading("Editing post...", {
       className: "dark:bg-[#070F2B] dark:text-white",
-    })
+    });
 
     try {
       const data = await database.updateDocument(
@@ -321,7 +319,7 @@ function Dashboard(props) {
                     onClick={() => setNewtodo(todo.todo)}
                   />
                 )}
-                { alltodos.length > 0 &&
+                {alltodos.length > 0 && (
                   <button
                     className={`bg-blue-500 hover:bg-blue-700 text-white shadow-md font-bold py-2 px-4 ${
                       edit ? " absolute right-0 rounded-r " : "rounded"
@@ -331,20 +329,20 @@ function Dashboard(props) {
                     {" "}
                     {edit ? <RxCross2 size={24} /> : "Edit a post"}{" "}
                   </button>
-                }
+                )}
               </div>
 
-              <div className="text-2xl mt-4 -mb-6 text-center font-bold" >
+              <div className="text-2xl mt-4 -mb-6 text-center font-bold">
                 Your Posts
               </div>
 
-              <div className=" mt-8  ">
+              <div className="mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="flex justify-center items-center gap-4 ">
+                  <div className="flex flex-wrap justify-center items-center w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] gap-4  ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] rounded-lg ${
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full max-w-[400px] rounded-lg ${
                           todo.fileid === null ? "p-4" : "py-6 px-2"
                         } mb-4`}
                       >
@@ -357,20 +355,26 @@ function Dashboard(props) {
                           </p>
                         </div>
 
-                        {todo.fileid &&
-                        <div
-                          className={`max-h-[250px] flex aspect-square justify-center items-center shadow-inner rounded bg-slate-300 dark:bg-[#050b20]  ${
-                            todo.fileid === null ? "p-0" : "p-4"
-                          } `}
-                        >
-                          {todo.fileid !== null ? (
-                              <img src={todo.fileurl} alt="post" className=" object-cover rounded max-h-[200px]" />
-                          ) : null}
-                        </div>
-                        }
+                        {todo.fileid && (
+                          <div
+                            className={`max-h-[250px] flex aspect-square justify-center items-center shadow-inner rounded bg-slate-300 dark:bg-[#050b20]  ${
+                              todo.fileid === null ? "p-0" : "p-4"
+                            } `}
+                          >
+                            {todo.fileid !== null ? (
+                              <img
+                                src={todo.fileurl}
+                                alt="post"
+                                className=" object-cover rounded max-h-[200px]"
+                              />
+                            ) : null}
+                          </div>
+                        )}
 
                         <p className="text-[12px] max-w-[15rem] break-words font-semibold ">
-                          <span className="text-blue-500 font-bold ">{todo.email === email ? "You" : todo.name}</span>{" "}
+                          <span className="text-blue-500 font-bold ">
+                            {todo.email === email ? "You" : todo.name}
+                          </span>{" "}
                           {todo.todo}
                         </p>
 

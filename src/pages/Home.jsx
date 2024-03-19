@@ -34,7 +34,6 @@ function Home(props) {
     }
   };
 
-
   const likeTodo = async (id, Likes) => {
     try {
       const data = await database.updateDocument(
@@ -45,13 +44,13 @@ function Home(props) {
           Likes: like ? Likes - 1 : Likes + 1,
         }
       );
-      !like ? toast.success("Liked successfully", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      })
-      :
-      toast.success("Unliked successfully", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      })
+      !like
+        ? toast.success("Liked successfully", {
+            className: "dark:bg-[#070F2B] dark:text-white",
+          })
+        : toast.success("Unliked successfully", {
+            className: "dark:bg-[#070F2B] dark:text-white",
+          });
     } catch (error) {
       toast.error("Please login or sign up to like", {
         className: "dark:bg-[#070F2B] dark:text-white",
@@ -63,7 +62,7 @@ function Home(props) {
   const isLogin = async () => {
     try {
       viewTodos();
-      const user = await account.get();
+      const user = await account.get("current");
       setName(user.name);
       setEmail(user.email);
     } catch (error) {
@@ -73,6 +72,14 @@ function Home(props) {
     }
   };
 
+  const anonamousLogin = async () => {
+    try {
+      await account.createAnonymousSession("anonymous");
+      viewTodos();
+    } catch (error) {
+      console.error("Error creating anonymous session", error);
+    }
+  };
 
   async function viewTodos() {
     setIsLoading(true);
@@ -80,7 +87,7 @@ function Home(props) {
       let response = await database.listDocuments(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        [],
+        []
       );
 
       setAlltodos(response.documents.reverse());
@@ -97,7 +104,7 @@ function Home(props) {
   const deleteTodo = async (id, vemail, vfileid) => {
     toast.loading("Deleting post...", {
       className: "dark:bg-[#070F2B] dark:text-white",
-    })
+    });
     if (vemail === null || vemail === undefined) {
       console.error("Null or undefined vemail in deleteTodo");
       return;
@@ -134,27 +141,24 @@ function Home(props) {
   };
 
   useEffect(() => {
-
     isLogin();
-
   }, [alltodos]);
 
   return (
     <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
       <div className="flex flex-col items-center  h-full w-11/12 max-w-[1180px] mx-auto ">
         <div>
-              <div className="text-2xl text-center font-bold">
-                Hey, <span className="text-blue-500">{name ? name : "Guest"}</span>
-                <p className="text-sm font-normal text-gray-500 ">
-                  Checkout latest post`s
-                </p>
-              </div>
+          <div className="text-2xl text-center font-bold">
+            Hey, <span className="text-blue-500">{name ? name : "Guest"}</span>
+            <p className="text-sm font-normal text-gray-500 ">
+              Checkout latest post`s
+            </p>
+          </div>
         </div>
         {isLoading ? (
           <>
             <div className="flex flex-col justify-between items-center gap-4 ">
-
-              <div className= "mt-8  ">
+              <div className="mt-8  ">
                 {alltodos.length > 0 ? (
                   <div className="flex flex-wrap justify-center items-center w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] gap-4  ">
                     {alltodos.map((todo, index) => (
@@ -173,20 +177,26 @@ function Home(props) {
                           </p>
                         </div>
 
-                        {todo.fileid &&
-                        <div
-                          className={`max-h-[250px] flex aspect-square justify-center items-center shadow-inner rounded bg-slate-300 dark:bg-[#050b20]  ${
-                            todo.fileid === null ? "p-0" : "p-4"
-                          } `}
-                        >
-                          {todo.fileid !== null ? (
-                              <img src={todo.fileurl} alt="post" className=" object-cover rounded max-h-[200px]" />
-                          ) : null}
-                        </div>
-                        }
+                        {todo.fileid && (
+                          <div
+                            className={`max-h-[250px] flex aspect-square justify-center items-center shadow-inner rounded bg-slate-300 dark:bg-[#050b20]  ${
+                              todo.fileid === null ? "p-0" : "p-4"
+                            } `}
+                          >
+                            {todo.fileid !== null ? (
+                              <img
+                                src={todo.fileurl}
+                                alt="post"
+                                className=" object-cover rounded max-h-[200px]"
+                              />
+                            ) : null}
+                          </div>
+                        )}
 
                         <p className="text-[10px] max-w-[15rem] break-words font-semibold ">
-                          <span className="text-blue-500">{todo.email === email ? "You" : todo.name}</span>{" "}
+                          <span className="text-blue-500">
+                            {todo.email === email ? "You" : todo.name}
+                          </span>{" "}
                           {todo.todo}
                         </p>
 
@@ -196,7 +206,9 @@ function Home(props) {
                               onClick={() => likeTodo(todo.$id, todo.Likes)}
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
-                              {todo.$id === todo.$id && todo.Likes > 0 && like ? (
+                              {todo.$id === todo.$id &&
+                              todo.Likes > 0 &&
+                              like ? (
                                 <FcLikePlaceholder size={24} />
                               ) : (
                                 <FcLikePlaceholder size={24} />
