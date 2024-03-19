@@ -166,7 +166,7 @@ function Home(props) {
 
               <div className= "mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="flex flex-wrap justify-center items-center w-[300px] max-w-[400px] gap-4  ">
+                  <div className="flex flex-wrap justify-center items-center w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] gap-4  ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}

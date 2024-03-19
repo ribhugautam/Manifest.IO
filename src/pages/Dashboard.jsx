@@ -344,7 +344,7 @@ function Dashboard(props) {
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-[300px] max-w-[400px] rounded-lg ${
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] rounded-lg ${
                           todo.fileid === null ? "p-4" : "py-6 px-2"
                         } mb-4`}
                       >
