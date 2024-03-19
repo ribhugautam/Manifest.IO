@@ -47,10 +47,10 @@ function Home(props) {
         }
       );
       !like
-        ? toast.success("Liked successfully", {
+        ? toast.success("Liked", {
             className: "dark:bg-[#070F2B] dark:text-white",
           })
-        : toast.success("Unliked successfully", {
+        : toast.error("Disliked", {
             className: "dark:bg-[#070F2B] dark:text-white",
           });
     } catch (error) {
