@@ -11,6 +11,7 @@ import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 
 function Home(props) {
+  const isLoggedin = props.isLoggedin;
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -126,6 +127,10 @@ function Home(props) {
     setIsLoading(false);
   }
 
+  {
+    !isLoggedin && account.deleteSession("current");
+  }
+
   const deleteTodo = async (id, vemail, vfileid) => {
     if (vemail === null || vemail === undefined) {
       console.error("Null or undefined vemail in deleteTodo");
@@ -219,9 +224,9 @@ function Home(props) {
           <>
             <div className="flex flex-col justify-between items-center gap-4 ">
 
-              <div className=" overflow-y-scroll mt-8  ">
+              <div className=" flex flex-col justify-center items-center mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 ">
+                  <div className="flex flex-wrap justify-center items-center gap-4  ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}

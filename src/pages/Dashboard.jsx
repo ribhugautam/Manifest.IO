@@ -310,7 +310,7 @@ function Dashboard(props) {
 
               <div className=" w-full max-h-[350px] mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 ">
+                  <div className="flex flex-wrap justify-center items-center gap-4 ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
