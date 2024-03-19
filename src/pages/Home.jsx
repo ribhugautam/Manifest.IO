@@ -224,7 +224,7 @@ function Home(props) {
           <>
             <div className="flex flex-col justify-between items-center gap-4 ">
 
-              <div className=" flex flex-col justify-center items-center mt-8  ">
+              <div className="mt-8  ">
                 {alltodos.length > 0 ? (
                   <div className="flex flex-wrap justify-center items-center gap-4  ">
                     {alltodos.map((todo, index) => (

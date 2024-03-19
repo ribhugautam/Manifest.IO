@@ -308,13 +308,13 @@ function Dashboard(props) {
                 Your Posts
               </div>
 
-              <div className=" w-full max-h-[350px] mt-8  ">
+              <div className=" mt-8  ">
                 {alltodos.length > 0 ? (
                   <div className="flex flex-wrap justify-center items-center gap-4 ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md aspect-square max-w-[450px] rounded-lg ${
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md aspect-square w-full max-w-[400px] rounded-lg ${
                           todo.fileid === null ? "p-4" : "py-6 px-2"
                         } mb-4`}
                       >
@@ -335,7 +335,7 @@ function Dashboard(props) {
                           {todo.fileid !== null ? (
                             <div className="h-[200px] rounded flex justify-center w-full">
                               {todo.fileurl.includes("loading") ? (
-                                <div className="flex justify-center aspect-square items-center h-full rounded">
+                                <div className="flex justify-center items-center h-full rounded">
                                   <svg
                                     className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
                                     xmlns="http://www.w3.org/2000/svg"
