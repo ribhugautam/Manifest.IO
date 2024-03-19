@@ -17,6 +17,7 @@ function Register() {
   };
 
   const register = async () => {
+    toast.loading("Registering...",{className:"dark:bg-[#070F2B] dark:text-white"});
     try {
       const user = await account.create("unique()", email, password, name);
       toast.success("Registered successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
@@ -24,6 +25,7 @@ function Register() {
     } catch (error) {
       toast.error("Error registering",{className:"dark:bg-[#070F2B] dark:text-white"});
     }
+    toast.dismiss();
   };
 
   return (

@@ -18,6 +18,7 @@ function Login(props) {
   };
 
   const login = async () => {
+    toast.loading("Logging in...",{className:"dark:bg-[#070F2B] dark:text-white"});
     try {
       const user = await account.createEmailSession(email, password);
       toast.success("Logged in successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
@@ -27,6 +28,7 @@ function Login(props) {
       toast.error("Invalid email or password",{className:"dark:bg-[#070F2B] dark:text-white"});
       console.log(error);
     }
+    toast.dismiss();
   };
 
   return (

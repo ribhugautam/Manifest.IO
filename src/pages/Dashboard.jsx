@@ -28,6 +28,10 @@ function Dashboard(props) {
       return;
     }
 
+    toast.loading("Uploading file...", {
+      className: "dark:bg-[#070F2B] dark:text-white",
+    })
+
     try {
       const fileUploaded = await storage.createFile(
         import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
@@ -36,6 +40,7 @@ function Dashboard(props) {
       );
       fileID = fileUploaded.$id;
     } catch (error) {
+      toast.dismiss();
       if (error instanceof Error) {
         console.error("Error uploading file", error);
       } else {
@@ -45,6 +50,7 @@ function Dashboard(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
+    toast.dismiss();
   };
 
   const deleteFile = async (fileId) => {
@@ -87,6 +93,14 @@ function Dashboard(props) {
           Likes: like ? Likes - 1 : Likes + 1,
         }
       );
+      !like ?
+      toast.success("Liked successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      })
+      :
+      toast.success("Unliked successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      })
     } catch (error) {
       console.error("Error liking post", error);
       toast.error("Error liking post", {
@@ -104,6 +118,9 @@ function Dashboard(props) {
       return;
     }
     await previewFile();
+    toast.loading("Adding post...", {
+      className: "dark:bg-[#070F2B] dark:text-white",
+    })
     try {
       const data = await database.createDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
@@ -128,6 +145,7 @@ function Dashboard(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
+  toast.dismiss();
   };
 
   const isLogin = async () => {
@@ -156,6 +174,7 @@ function Dashboard(props) {
   }
 
   const deleteTodo = async (id, vemail, vfileid) => {
+
     if (vemail === null || vemail === undefined) {
       console.error("Null or undefined vemail in deleteTodo");
       return;
@@ -173,6 +192,10 @@ function Dashboard(props) {
       return;
     }
 
+    toast.loading("Deleting post...", {
+      className: "dark:bg-[#070F2B] dark:text-white",
+    })
+
     try {
       const data = await database.deleteDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
@@ -188,6 +211,7 @@ function Dashboard(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
+    toast.dismiss();
   };
 
   const editTodo = async (id, vemail, vtodo) => {
@@ -197,6 +221,11 @@ function Dashboard(props) {
       });
       return;
     }
+
+    toast.loading("Editing post...", {
+      className: "dark:bg-[#070F2B] dark:text-white",
+    })
+
     try {
       const data = await database.updateDocument(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
@@ -215,6 +244,7 @@ function Dashboard(props) {
       });
     }
     setNewtodo("");
+    toast.dismiss();
   };
 
   useEffect(() => {
@@ -291,7 +321,7 @@ function Dashboard(props) {
                     onClick={() => setNewtodo(todo.todo)}
                   />
                 )}
-                {
+                { alltodos.length > 0 &&
                   <button
                     className={`bg-blue-500 hover:bg-blue-700 text-white shadow-md font-bold py-2 px-4 ${
                       edit ? " absolute right-0 rounded-r " : "rounded"

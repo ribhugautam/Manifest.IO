@@ -2,52 +2,19 @@ import React, { useEffect, useState } from "react";
 import { account, database, storage } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { ID, Query } from "appwrite";
-import { IoImageOutline } from "react-icons/io5";
-import { RxCross2 } from "react-icons/rx";
-import { IoSendOutline } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FcLikePlaceholder } from "react-icons/fc";
-import { FcLike } from "react-icons/fc";
 
 function Home(props) {
   const isLoggedin = props.isLoggedin;
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [todo, setTodo] = useState("");
   const [alltodos, setAlltodos] = useState([]);
   const [newtodo, setNewtodo] = useState("");
   const [edit, setEdit] = useState(false);
-  const [file, setFile] = useState(null);
-  let fileID = null;
-  let fileURL = null;
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const uploadFile = async () => {
-    if (todo === null || file === null) {
-      return;
-    }
-
-    try {
-      const fileUploaded = await storage.createFile(
-        import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
-        ID.unique(),
-        file
-      );
-      fileID = fileUploaded.$id;
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error uploading file", error);
-      } else {
-        console.error("Error uploading file", { error: error });
-      }
-      toast.error("Error uploading file", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      });
-    }
-  };
 
   const deleteFile = async (fileId) => {
     if (fileId === null || fileId === undefined) {
@@ -67,17 +34,6 @@ function Home(props) {
     }
   };
 
-  const previewFile = async () => {
-    try {
-      const filepreview = await storage.getFilePreview(
-        import.meta.env.VITE_APP_APPWRITE_BUCKET_ID,
-        fileID
-      );
-      fileURL = filepreview.href;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const likeTodo = async (id, Likes) => {
     try {
@@ -89,6 +45,13 @@ function Home(props) {
           Likes: like ? Likes - 1 : Likes + 1,
         }
       );
+      !like ? toast.success("Liked successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      })
+      :
+      toast.success("Unliked successfully", {
+        className: "dark:bg-[#070F2B] dark:text-white",
+      })
     } catch (error) {
       toast.error("Please login or sign up to like", {
         className: "dark:bg-[#070F2B] dark:text-white",
@@ -132,6 +95,9 @@ function Home(props) {
   }
 
   const deleteTodo = async (id, vemail, vfileid) => {
+    toast.loading("Deleting post...", {
+      className: "dark:bg-[#070F2B] dark:text-white",
+    })
     if (vemail === null || vemail === undefined) {
       console.error("Null or undefined vemail in deleteTodo");
       return;
@@ -164,33 +130,7 @@ function Home(props) {
         className: "dark:bg-[#070F2B] dark:text-white",
       });
     }
-  };
-
-  const editTodo = async (id, vemail, vtodo) => {
-    if (vemail !== email) {
-      toast.error("You are not authorized to edit this post", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      });
-      return;
-    }
-    try {
-      const data = await database.updateDocument(
-        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        id,
-        {
-          todo: newtodo,
-        }
-      );
-      toast.success("Post edited successfully", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      });
-    } catch (error) {
-      toast.error("Error editing post", {
-        className: "dark:bg-[#070F2B] dark:text-white",
-      });
-    }
-    setNewtodo("");
+    toast.dismiss();
   };
 
   useEffect(() => {
