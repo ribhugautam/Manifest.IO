@@ -203,7 +203,7 @@ function Home(props) {
                         <div className="flex gap-2 justify-between items-center ">
                           <div className="flex flex-col justify-center items-center">
                             <button
-                              onClick={() => likeTodo(todo.$id, todo.Likes)}
+                              onClick={ () => {email === todo.email && likeTodo(todo.$id, todo.Likes)}}
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
                               {todo.$id === todo.$id &&
