@@ -335,7 +335,7 @@ function Dashboard(props) {
                           {todo.fileid !== null ? (
                             <div className="h-[200px] rounded flex justify-center w-full">
                               {todo.fileurl.includes("loading") ? (
-                                <div className="flex justify-center items-center h-full rounded">
+                                <div className="flex justify-center w-full items-center h-full rounded">
                                   <svg
                                     className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
                                     xmlns="http://www.w3.org/2000/svg"
