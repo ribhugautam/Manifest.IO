@@ -199,7 +199,7 @@ function Home(props) {
       <div className="flex flex-col items-center  h-full w-11/12 max-w-[1180px] mx-auto ">
         <div>
           {
-            !isLoading ? (
+            name ? (
               <div className="text-2xl text-center font-bold">
                 Hey, <span className="text-blue-500">{name}</span>
                 <p className="text-sm font-normal text-gray-500 ">
