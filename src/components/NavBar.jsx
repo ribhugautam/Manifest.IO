@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { CiLogin } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
-import { TbLayoutDashboard } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
 
 function NavBar(props) {
   const isLoggedin = props.isLoggedin;
@@ -66,7 +66,7 @@ function NavBar(props) {
           {isLoggedin && (
             <Link to="/Dashboard">
               <button className="bg-white dark:bg-white/5 dark:hover:bg-white/10 text-blue-500 shadow-md font-semibold py-1 p-2 rounded hover:bg-white/90 transition-all duration-200 ">
-              Dashboard
+              <CgProfile size={24} />
               </button>
             </Link>
           )}
