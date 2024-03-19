@@ -18,16 +18,15 @@ function Login(props) {
   };
 
   const login = async () => {
-    setLoggingIn(true);
     try {
-      const user = await account.createEmailPasswordSession(email, password);
+      const user = await account.createEmailSession(email, password);
       toast.success("Logged in successfully",{className:"dark:bg-[#070F2B] dark:text-white"});
       setIsLoggedin(true);
       navigate("/Dashboard");
     } catch (error) {
       toast.error("Invalid email or password",{className:"dark:bg-[#070F2B] dark:text-white"});
+      console.log(error);
     }
-    setLoggingIn(false);
   };
 
   return (

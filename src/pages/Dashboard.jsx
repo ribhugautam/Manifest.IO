@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { account, database, storage } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { IoImageOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { IoSendOutline } from "react-icons/io5";
@@ -146,10 +146,10 @@ function Dashboard(props) {
       let response = await database.listDocuments(
         import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        []
+        [Query.equal("email", email)],
       );
 
-      setAlltodos(response.documents);
+      setAlltodos(response.documents.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -304,13 +304,17 @@ function Dashboard(props) {
                 }
               </div>
 
-              <div className=" w-full overflow-y-scroll max-h-[400px] mt-8  ">
+              <div className="text-2xl mt-4 -mb-6 text-center font-bold" >
+                Your Posts
+              </div>
+
+              <div className=" w-full max-h-[350px] mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="w-full flex flex-col-reverse ">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 ">
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
-                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md w-full rounded-lg ${
+                        className={`bg-white dark:bg-white/5 gap-2 flex relative flex-col justify-center shadow-md aspect-square max-w-[450px] rounded-lg ${
                           todo.fileid === null ? "p-4" : "py-6 px-2"
                         } mb-4`}
                       >
@@ -331,7 +335,7 @@ function Dashboard(props) {
                           {todo.fileid !== null ? (
                             <div className="h-[200px] rounded flex justify-center w-full">
                               {todo.fileurl.includes("loading") ? (
-                                <div className="flex justify-center items-center h-full rounded">
+                                <div className="flex justify-center aspect-square items-center h-full rounded">
                                   <svg
                                     className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -357,7 +361,7 @@ function Dashboard(props) {
                                 <img
                                   src={todo.fileurl}
                                   alt="post"
-                                  className={`object-cover rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}
+                                  className={`object-cover max-w-[350px] rounded hover:scale-110 hover:shadow-lg transition-all duration-200 `}
                                 />
                               )}
                             </div>
@@ -375,8 +379,8 @@ function Dashboard(props) {
                               onClick={() => likeTodo(todo.$id, todo.Likes)}
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
-                              {like ? (
-                                <FcLike size={24} />
+                              {like && todo.Likes && todo.$id === todo.$id ? (
+                                <FcLikePlaceholder size={24} />
                               ) : (
                                 <FcLikePlaceholder size={24} />
                               )}
