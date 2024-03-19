@@ -143,22 +143,12 @@ function Home(props) {
     <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
       <div className="flex flex-col items-center  h-full w-11/12 max-w-[1180px] mx-auto ">
         <div>
-          {
-            name ? (
               <div className="text-2xl text-center font-bold">
-                Hey, <span className="text-blue-500">{name}</span>
+                Hey, <span className="text-blue-500">{name ? name : "Guest"}</span>
                 <p className="text-sm font-normal text-gray-500 ">
                   Checkout latest post`s
                 </p>
               </div>
-            ):
-            <div className="text-2xl text-center font-bold">
-                Hey, <span className="text-blue-500">Guest</span>
-                <p className="text-sm font-normal text-gray-500 ">
-                  Checkout latest post`s
-                </p>
-              </div>
-          }
         </div>
         {isLoading ? (
           <>
@@ -196,7 +186,7 @@ function Home(props) {
                         }
 
                         <p className="text-[10px] max-w-[15rem] break-words font-semibold ">
-                          <span className="text-blue-500">{todo.name}</span>{" "}
+                          <span className="text-blue-500">{todo.email === email ? "You" : todo.name}</span>{" "}
                           {todo.todo}
                         </p>
 

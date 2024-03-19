@@ -370,7 +370,7 @@ function Dashboard(props) {
                         }
 
                         <p className="text-[12px] max-w-[15rem] break-words font-semibold ">
-                          <span className="text-blue-500 font-bold ">{todo.name}</span>{" "}
+                          <span className="text-blue-500 font-bold ">{todo.email === email ? "You" : todo.name}</span>{" "}
                           {todo.todo}
                         </p>
 
