@@ -148,11 +148,15 @@ function Home(props) {
             <p className="text-sm font-normal text-gray-500 ">
               Checkout latest post`s
             </p>
-            {!name &&
+            {!name && (
               <p className="text-sm font-normal text-gray-500 ">
-                <span className="text-blue-500 italic" ><Link to="/Login" >Login</Link> or <Link to="/register" >Sign up</Link></span> to add your own.
+                <span className="text-blue-500 italic">
+                  <Link to="/Login">Login</Link> or{" "}
+                  <Link to="/register">Sign up</Link>
+                </span>{" "}
+                to add your own.
               </p>
-            }
+            )}
           </div>
         </div>
         {isLoading ? (
@@ -203,7 +207,17 @@ function Home(props) {
                         <div className="flex gap-2 justify-between items-center ">
                           <div className="flex flex-col justify-center items-center">
                             <button
-                              onClick={ () => {email === todo.email && likeTodo(todo.$id, todo.Likes)}}
+                              onClick={() => {
+                                email === todo.email
+                                  ? likeTodo(todo.$id, todo.Likes)
+                                  : toast.error(
+                                      "Please login or sign up to like",
+                                      {
+                                        className:
+                                          "dark:bg-[#070F2B] dark:text-white",
+                                      }
+                                    );
+                              }}
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
                               {todo.$id === todo.$id &&
