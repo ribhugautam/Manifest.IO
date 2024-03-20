@@ -9,6 +9,7 @@ import Privateroute from "./components/Privateroute";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdOutlineNightlight } from "react-icons/md";
 import { IoIosArrowUp } from "react-icons/io";
+import Footer from "./components/Footer";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -68,12 +69,14 @@ function App() {
         )}
       </button>
 
-      <button
+      {
+        <button
         className="fixed bg-white hover:bg-[#0f1c4cda] text-blue-500 dark:hover:text-blue-500 font-semibold rounded-full p-2 dark:bg-white/10 shadow-md dark:hover:bg-white bottom-2 right-2"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         <IoIosArrowUp size={20} />
       </button>
+      }
     </div>
   );
 }

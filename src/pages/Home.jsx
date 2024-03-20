@@ -6,6 +6,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 function Home(props) {
   const isLoggedin = props.isLoggedin;
@@ -85,7 +86,6 @@ function Home(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         []
       );
-
       setAlltodos(response.documents.reverse());
     } catch (error) {
       console.log(error);
@@ -271,7 +271,7 @@ function Home(props) {
             </div>
           </>
         ) : (
-          <div className="flex gap-1 animate-ping">
+          <div className="flex gap-1 mt-4 animate-ping">
             <div className="bg-blue-700 rounded-full animate-bounce w-2 h-2  " />
             <div className="bg-blue-700 rounded-full animate-bounce w-2 h-2  " />
             <div className="bg-blue-700 rounded-full animate-bounce w-2 h-2  " />
