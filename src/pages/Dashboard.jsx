@@ -385,9 +385,9 @@ function Dashboard(props) {
                               className="text-blue-500 hover:scale-105 transition-all duration-200 "
                             >
                               {like && todo.Likes && todo.$id === todo.$id ? (
-                                <FcLikePlaceholder size={24} />
+                                <FcLike size={24} />
                               ) : (
-                                <FcLikePlaceholder size={24} />
+                                <FcLike size={24} />
                               )}
                             </button>
                             <span className="text-[10px] font-semibold">

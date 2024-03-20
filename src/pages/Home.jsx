@@ -146,7 +146,7 @@ function Home(props) {
           <div className="text-2xl text-center font-bold">
             Hey, <span className="text-blue-500">{name ? name : "Guest"}</span>
             <p className="text-sm font-normal text-gray-500 ">
-              Checkout latest post`s
+              Checkout latest <span className="text-blue-500 italic " >post`s</span>
             </p>
             {!name && (
               <p className="text-sm font-normal text-gray-500 ">
@@ -223,9 +223,9 @@ function Home(props) {
                               {todo.$id === todo.$id &&
                               todo.Likes > 0 &&
                               like ? (
-                                <FcLikePlaceholder size={24} />
+                                <FcLike size={24} />
                               ) : (
-                                <FcLikePlaceholder size={24} />
+                                <FcLike size={24} />
                               )}
                             </button>
                             <span className="text-[10px] font-semibold">
