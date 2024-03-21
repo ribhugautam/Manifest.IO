@@ -22,6 +22,7 @@ function Dashboard(props) {
   let fileID = null;
   let fileURL = null;
   const [like, setLike] = useState(false);
+  const [latest, setLatest] = useState(true);
 
   const uploadFile = async () => {
     if (todo === null || file === null) {
@@ -166,7 +167,7 @@ function Dashboard(props) {
         [Query.equal("email", email)]
       );
 
-      setAlltodos(response.documents.reverse());
+      setAlltodos(!latest ? response.documents : response.documents.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -334,6 +335,25 @@ function Dashboard(props) {
 
               <div className="text-2xl mt-4 -mb-6 text-center font-bold">
                 Your Posts
+              </div>
+
+              <div className="flex flex-wrap gap-4 justify-center p-4 pt-8 items-center">
+                <button
+                  onClick={() => setLatest(true)}
+                  className={`text-white px-4 ${
+                    latest ? "bg-blue-500" : "bg-blue-500/50 hover:bg-blue-500/80"
+                  } py-1 transition-all duration-300 ease-linear font-medium text-xs rounded`}
+                >
+                  Recent
+                </button>
+                <button
+                  onClick={() => setLatest(false)}
+                  className={` text-white px-4  ${
+                    !latest ? "bg-blue-500" : "bg-blue-500/50 hover:bg-blue-500/80"
+                  } py-1 transition-all duration-300 ease-linear font-medium text-xs rounded`}
+                >
+                  Oldest
+                </button>
               </div>
 
               <div className="mt-8  ">

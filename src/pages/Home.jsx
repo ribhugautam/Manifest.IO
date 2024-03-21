@@ -18,6 +18,7 @@ function Home(props) {
   const [edit, setEdit] = useState(false);
   const [like, setLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [latest, setLatest] = useState(true);
 
   const deleteFile = async (fileId) => {
     if (fileId === null || fileId === undefined) {
@@ -86,7 +87,7 @@ function Home(props) {
         import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
         []
       );
-      setAlltodos(response.documents.reverse());
+      setAlltodos(!latest ? response.documents : response.documents.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -146,7 +147,8 @@ function Home(props) {
           <div className="text-2xl text-center font-bold">
             Hey, <span className="text-blue-500">{name ? name : "Guest"}</span>
             <p className="text-sm font-normal text-gray-500 ">
-              Checkout latest <span className="text-blue-500 italic " >post`s</span>
+              Checkout latest{" "}
+              <span className="text-blue-500 italic ">post`s</span>
             </p>
             {!name && (
               <p className="text-sm font-normal text-gray-500 ">
@@ -161,6 +163,24 @@ function Home(props) {
         </div>
         {isLoading ? (
           <>
+            <div className="flex flex-wrap gap-4 justify-center p-4 pt-8 items-center">
+              <button
+                onClick={() => setLatest(true)}
+                className={`text-white px-4 ${
+                  latest ? "bg-blue-500" : "bg-blue-500/50 hover:bg-blue-500/80"
+                } py-1 transition-all duration-200 ease-linear font-medium text-xs rounded`}
+              >
+                Recent
+              </button>
+              <button
+                onClick={() => setLatest(false)}
+                className={` text-white px-4 hover:bg-b\ ${
+                  !latest ? "bg-blue-500" : "bg-blue-500/50 hover:bg-blue-500/80"
+                } py-1 transition-all duration-200 ease-linear font-medium text-xs rounded`}
+              >
+                Oldest
+              </button>
+            </div>
             <div className="flex flex-col justify-between items-center gap-4 ">
               <div className="mt-8  ">
                 {alltodos.length > 0 ? (
