@@ -208,7 +208,7 @@ function Home(props) {
                           <div className="flex flex-col justify-center items-center">
                             <button
                               onClick={() => {
-                                email === todo.email
+                                isLoggedin
                                   ? likeTodo(todo.$id, todo.Likes)
                                   : toast.error(
                                       "Please login or sign up to like",
