@@ -147,6 +147,20 @@ function Dashboard(props) {
     toast.dismiss();
   };
 
+  async function viewTodos() {
+    try {
+      let response = await database.listDocuments(
+        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
+        [Query.equal("email", email)]
+      );
+      console.log(response);
+      setAlltodos(response.documents.reverse());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const isLogin = async () => {
     try {
       const user = await account.get("current");
@@ -157,20 +171,6 @@ function Dashboard(props) {
       navigate("/Login");
     }
   };
-
-  async function viewTodos() {
-    try {
-      let response = await database.listDocuments(
-        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        [Query.equal("email", email)]
-      );
-
-      setAlltodos(response.documents.reverse());
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const deleteTodo = async (id, vemail, vfileid) => {
     if (vemail === null || vemail === undefined) {
@@ -246,8 +246,11 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-    isLogin();
-  }, [alltodos]);
+    const interval = setInterval(() => {
+      isLogin();
+    },[2000]);
+    return () => clearInterval(interval);
+  }, [addTodo, deleteTodo, editTodo]);
 
   return (
     <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">

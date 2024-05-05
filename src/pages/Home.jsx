@@ -20,6 +20,21 @@ function Home(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [latest, setLatest] = useState(true);
 
+  const viewTodos = async () => {
+    try {
+      let response = await database.listDocuments(
+        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
+        []
+      );
+      setAlltodos(response.documents);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(true);
+    }
+  };
+
   const deleteFile = async (fileId) => {
     if (fileId === null || fileId === undefined) {
       console.log("fileId is null or undefined");
@@ -69,6 +84,7 @@ function Home(props) {
       setName(user.name);
       setEmail(user.email);
       viewTodos();
+      console.log("inlogin");
       {
         !isLoggedin && account.deleteSession("current");
       }
@@ -78,21 +94,6 @@ function Home(props) {
       setEmail("");
     }
   };
-
-  async function viewTodos() {
-    setIsLoading(true);
-    try {
-      let response = await database.listDocuments(
-        import.meta.env.VITE_APP_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID,
-        []
-      );
-      setAlltodos(!latest ? response.documents : response.documents.reverse());
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  }
 
   const deleteTodo = async (id, vemail, vfileid) => {
     toast.loading("Deleting post...", {
@@ -134,11 +135,15 @@ function Home(props) {
   };
 
   useEffect(() => {
-    if (isLoggedin) {
-      isLogin();
-    }
-    viewTodos();
-  }, [alltodos]);
+    const interval = setInterval(() => {
+      if (isLoggedin) {
+        isLogin();
+      } else {
+        viewTodos();
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isLoggedin]);
 
   return (
     <div className="flex flex-col p-8 items-center h-full dark:bg-[#070F2B] dark:text-white bg-gray-100">
@@ -175,7 +180,9 @@ function Home(props) {
               <button
                 onClick={() => setLatest(false)}
                 className={` text-white px-4 hover:bg-b\ ${
-                  !latest ? "bg-blue-500" : "bg-blue-500/50 hover:bg-blue-500/80"
+                  !latest
+                    ? "bg-blue-500"
+                    : "bg-blue-500/50 hover:bg-blue-500/80"
                 } py-1 transition-all duration-200 ease-linear font-medium text-xs rounded`}
               >
                 Oldest
@@ -184,7 +191,7 @@ function Home(props) {
             <div className="flex flex-col justify-between items-center gap-4 ">
               <div className="mt-8  ">
                 {alltodos.length > 0 ? (
-                  <div className="flex flex-wrap justify-center items-center w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] gap-4  ">
+                  <div className={`flex ${!latest ? "flex-wrap" : "flex-wrap-reverse"} justify-center items-center w-[300px] sm:w-[300px] md:w-[400px] lg:w-[400px] max-w-[400px] gap-4`}>
                     {alltodos.map((todo, index) => (
                       <div
                         key={index}
